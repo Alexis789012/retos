@@ -9,10 +9,11 @@
     { "src": "css/**/*.css", "use": "@vercel/static" },
     { "src": "js/**/*.js", "use": "@vercel/static" },
     { "src": "fonts/**/*", "use": "@vercel/static" },
+    { "src": "images/**/*", "use": "@vercel/static" },
     { "src": "Boceto/**/*", "use": "@vercel/static" },
     { "src": "style.css", "use": "@vercel/static" }
   ],
   "routes": [
     { "handle": "filesystem" }
   ]
-  }
+}

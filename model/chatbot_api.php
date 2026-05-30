@@ -223,7 +223,7 @@ $mensajes = array_merge(
 );
 
 // ══════════════════════════════════════════════
-//  LLAMADA A GROQ API
+//  LLAMADA A GROQ API (Optimizado para Vercel)
 // ══════════════════════════════════════════════
 $data = [
     "model" => "llama-3.1-8b-instant",
@@ -237,17 +237,25 @@ $url = "https://api.groq.com/openai/v1/chat/completions";
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Content-Type: application/json",
-    "Authorization: Bearer " . $apiKey
+    "Authorization: Bearer " . trim($apiKey)
 ]);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+// Tiempos de espera obligatorios para evitar huelgas en microservicios cloud
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); 
+curl_setopt($ch, CURLOPT_TIMEOUT, 30); 
+
+// Manejo seguro de certificados SSL en proxies de producción
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
 $response = curl_exec($ch);
+
 if (curl_errno($ch)) {
-    echo json_encode(["response" => "Error al conectar con el servidor. Intenta de nuevo."]);
+    $errorStr = curl_error($ch);
+    echo json_encode(["response" => "⚠️ Error de red en el servidor cloud: $errorStr"]);
     curl_close($ch);
     exit;
 }
@@ -261,6 +269,7 @@ if (isset($result["choices"][0]["message"]["content"])) {
     $_SESSION['chat_history'][] = ["role" => "assistant", "content" => $botResponse];
     echo json_encode(["response" => $botResponse]);
 } else {
-    $errorMsg = $result["error"]["message"] ?? "Sin respuesta del modelo.";
-    echo json_encode(["response" => "Hubo un problema: $errorMsg"]);
+    // Si la API Key falla o está vacía, Groq devuelve la estructura de error aquí
+    $errorMsg = $result["error"]["message"] ?? "Error de autenticación o cuota excedida con Groq.";
+    echo json_encode(["response" => "🤖 Ups, el chatbot experimenta una interrupción: $errorMsg"]);
 }
