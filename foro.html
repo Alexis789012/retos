@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Foro - ThinkChallenge</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <script src="https://kit.fontawesome.com/274421acc6.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/tooplate-gymso-style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-color: #3B82F6;
+      --secondary-color: #8B5CF6;
+      --accent-color: #EC4899;
+      --highlight-color: #22D3EE;
+      --light-bg-color: #F9FAFB;
+      --dark-color: #1F2937;
+      --card-bg: #FFFFFF;
+      --shadow-color: rgba(0,0,0,0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg-color);
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+
+    /* ── NAVBAR (igual que index) ── */
+    .navbar {
+      background-color: #278fff !important;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .navbar-brand {
+      color: #ffffff !important;
+      font-size: 28px;
+      font-weight: bold;
+      line-height: normal;
+      padding-top: 0;
+    }
+    .nav-item .nav-link {
+      color: #ffffff !important;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+    .nav-item .nav-link:hover,
+    .nav-item .nav-link.active-page { color: #1400ED !important; }
+
+    /* ── HERO FORO ── */
+    .foro-hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 90px 0 50px;
+      text-align: center;
+      color: white;
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 10px 25px var(--shadow-color);
+      position: relative;
+      overflow: hidden;
+    }
+    .foro-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .foro-hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 10px; position: relative; }
+    .foro-hero p  { font-size: 1rem; opacity: 0.88; position: relative; }
+
+    /* ── TOOLBAR ── */
+    .foro-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin: 28px 0 18px;
+      flex-wrap: wrap;
+    }
+    .search-wrap { flex: 1; min-width: 200px; position: relative; }
+    .search-wrap i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: #9CA3AF; pointer-events: none;
+    }
+    .foro-search {
+      width: 100%;
+      border: 2px solid #E5E7EB;
+      border-radius: 50px;
+      padding: 11px 18px 11px 42px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: white;
+    }
+    .foro-search:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+    }
+    .btn-nuevo-hilo {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 11px 24px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+    }
+    .btn-nuevo-hilo:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── LAYOUT ── */
+    .foro-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+    }
+
+    /* ── SIDEBAR ── */
+    .foro-sidebar { padding-top: 28px; }
+    .sidebar-card {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px var(--shadow-color);
+      padding: 18px 16px;
+      margin-bottom: 18px;
+    }
+    .sidebar-heading {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #9CA3AF;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+    .cat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.18s;
+      text-decoration: none;
+      color: var(--dark-color);
+      font-size: 0.86rem;
+      font-weight: 500;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+    .cat-item:hover { background: #F3F4F6; }
+    .cat-item.active {
+      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
+      color: var(--primary-color);
+    }
+    .cat-icon {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .cat-count {
+      margin-left: auto;
+      background: #F3F4F6;
+      color: #6B7280;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .cat-item.active .cat-count {
+      background: rgba(59,130,246,0.15);
+      color: var(--primary-color);
+    }
+
+    /* Stat mini */
+    .stat-mini {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      padding: 7px 0;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .stat-mini:last-child { border-bottom: none; }
+    .stat-mini .lbl { color: #6B7280; }
+    .stat-mini .val { font-weight: 700; color: var(--dark-color); }
+
+    /* ── MAIN ── */
+    .foro-main { padding-top: 28px; }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .ftab {
+      background: white;
+      border: 2px solid #E5E7EB;
+      border-radius: 50px;
+      color: #6B7280;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .ftab:hover { border-color: var(--primary-color); color: var(--primary-color); }
+    .ftab.active {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-color: transparent;
+      color: white;
+    }
+
+    /* Section label */
+    .section-lbl {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #9CA3AF;
+      margin-bottom: 10px;
+      margin-top: 6px;
+    }
+
+    /* ── THREAD CARD ── */
+    .thread-card {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px var(--shadow-color);
+      margin-bottom: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+      border: 2px solid transparent;
+    }
+    .thread-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .thread-card.pinned {
+      border-color: rgba(59,130,246,0.3);
+    }
+    .thread-card-head {
+      display: flex;
+      gap: 14px;
+      padding: 18px 20px 12px;
+      cursor: pointer;
+    }
+    .thread-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .thread-body-wrap { flex: 1; min-width: 0; }
+    .thread-top {
+      display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;
+    }
+    .thread-title {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--dark-color);
+      flex: 1;
+      line-height: 1.4;
+    }
+    .badge-pin {
+      background: rgba(59,130,246,0.12);
+      color: var(--primary-color);
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 6px; white-space: nowrap;
+    }
+    .badge-hot {
+      background: rgba(236,72,153,0.12);
+      color: var(--accent-color);
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 6px; white-space: nowrap;
+    }
+    .thread-excerpt {
+      font-size: 0.82rem;
+      color: #6B7280;
+      line-height: 1.55;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .thread-meta {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .tag-pill {
+      background: #F3F4F6;
+      color: #6B7280;
+      font-size: 0.72rem; font-weight: 500;
+      padding: 3px 10px; border-radius: 6px;
+    }
+    .thread-stat {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.78rem; color: #9CA3AF;
+    }
+    .thread-author-info {
+      margin-left: auto;
+      font-size: 0.74rem;
+      color: #9CA3AF;
+    }
+    .thread-author-info span { color: var(--primary-color); font-weight: 600; }
+
+    /* ── REACTIONS BAR ── */
+    .reactions-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-top: 1px solid #F3F4F6;
+      flex-wrap: wrap;
+    }
+    .react-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: #F9FAFB;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 50px;
+      padding: 5px 13px;
+      font-size: 0.8rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+      color: #6B7280;
+    }
+    .react-btn:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      background: rgba(59,130,246,0.05);
+    }
+    .react-btn.active {
+      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    .btn-comment-toggle {
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .btn-comment-toggle:hover { background: rgba(59,130,246,0.07); }
+
+    /* ── COMMENTS SECTION ── */
+    .comments-section {
+      border-top: 1px solid #F3F4F6;
+      padding: 16px 20px;
+      display: none;
+      background: #FAFBFF;
+    }
+    .comments-section.open { display: block; }
+    .comment-item {
+      display: flex; gap: 12px;
+      margin-bottom: 14px;
+      animation: fadeSlide 0.25s ease;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .comment-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .comment-bubble {
+      background: white;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 0 14px 14px 14px;
+      padding: 10px 14px;
+      flex: 1;
+    }
+    .comment-bubble strong { font-size: 0.82rem; color: var(--dark-color); }
+    .comment-bubble p { font-size: 0.82rem; color: #4B5563; margin: 4px 0 0; line-height: 1.5; }
+    .comment-time { font-size: 0.7rem; color: #9CA3AF; margin-top: 4px; }
+    .comment-react {
+      display: flex; gap: 6px; margin-top: 6px;
+    }
+    .c-react {
+      background: none; border: none; cursor: pointer;
+      font-size: 0.75rem; color: #9CA3AF; padding: 2px 6px;
+      border-radius: 6px; transition: all 0.15s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .c-react:hover { background: #F3F4F6; color: var(--primary-color); }
+    .c-react.liked { color: var(--accent-color); }
+
+    /* Comment input */
+    .comment-input-wrap {
+      display: flex; gap: 10px; align-items: flex-end;
+      margin-top: 10px;
+    }
+    .comment-input {
+      flex: 1;
+      border: 2px solid #E5E7EB;
+      border-radius: 14px;
+      padding: 9px 14px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.83rem;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      min-height: 42px;
+      max-height: 100px;
+    }
+    .comment-input:focus { border-color: var(--primary-color); }
+    .btn-send-comment {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      border-radius: 50%;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: white;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-send-comment:hover { opacity: 0.88; transform: scale(1.05); }
+
+    /* ── MODAL NUEVO HILO ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      width: 100%; max-width: 560px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: modalIn 0.25s ease;
+      margin: 20px;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.92) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-box h3 {
+      font-size: 1.3rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+    .form-field { margin-bottom: 16px; }
+    .form-field label {
+      display: block; font-size: 0.82rem;
+      font-weight: 600; color: #374151; margin-bottom: 6px;
+    }
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      border: 2px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.86rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus { border-color: var(--primary-color); }
+    .form-field textarea { min-height: 110px; resize: vertical; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+    .btn-cancel {
+      background: #F3F4F6; border: none; border-radius: 50px;
+      padding: 10px 22px; font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer; color: #6B7280;
+      transition: background 0.15s;
+    }
+    .btn-cancel:hover { background: #E5E7EB; }
+    .btn-publish {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border: none; border-radius: 50px;
+      padding: 10px 26px; font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem; font-weight: 700; cursor: pointer; color: white;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-publish:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid #efebeb;
+      padding: 1.5rem 0;
+    }
+    .site-footer .copyright-text { font-size: 16px; color: #666262; font-weight: 300; }
+    .social-icon { list-style: none; padding: 0; margin: 5px 0 0 0; display: flex; gap: 0; justify-content: center; }
+    .social-icon li { display: inline-block; }
+    .social-icon li a { color: #666262; font-size: 18px; font-weight: bold; margin: 5px 10px; display: inline-block; }
+    .social-icon li a:hover { color: #1400ED; }
+
+    /* toast */
+    .toast-msg {
+      position: fixed; bottom: 24px; right: 24px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white; padding: 12px 22px; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(59,130,246,0.35);
+      z-index: 99999; display: none;
+      animation: toastIn 0.3s ease;
+    }
+    @keyframes toastIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+
+    /* empty state */
+    .empty-state {
+      text-align: center; padding: 40px 20px; color: #9CA3AF;
+    }
+    .empty-state i { font-size: 2.5rem; margin-bottom: 10px; opacity: 0.4; }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .foro-layout { grid-template-columns: 1fr; }
+      .foro-sidebar { display: none; }
+      .foro-hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR (igual que index.html) -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <span class="site-name">ThinkChallenge</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-lg-auto">
+        <li class="nav-item"><a href="index.html#home" class="nav-link">Inicio</a></li>
+        <li class="nav-item"><a href="index.html#about" class="nav-link">Bienvenida</a></li>
+        <li class="nav-item"><a href="foro.html" class="nav-link active-page">Foro</a></li>
+        <li class="nav-item"><a href="test-retos.html" class="nav-link">Test</a></li>        
+        <li class="nav-item"><a href="index.html#class" class="nav-link">Retos seguros</a></li>
+        <li class="nav-item"><a href="index.html#schedule" class="nav-link">Aprendizaje</a></li>
+        <li class="nav-item"><a href="index.html#contact" class="nav-link">Apoyo</a></li>
+        <li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#IniciarSesion">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="foro-hero">
+  <div class="container">
+    <h1 data-aos="fade-up">💬 Foro de la Comunidad</h1>
+    <p data-aos="fade-up" data-aos-delay="150">Comparte experiencias, pregunta y apoya a otros. Aquí todos somos ThinkChallenge.</p>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="foro-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="foro-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-heading">Categorías</div>
+      <button class="cat-item active" data-cat="todos" onclick="filterCategory(this)">
+        <div class="cat-icon" style="background:rgba(59,130,246,0.12);">🌐</div>
+        Todos los hilos
+        <span class="cat-count" id="cnt-todos">5</span>
+      </button>
+      <button class="cat-item" data-cat="Retos virales" onclick="filterCategory(this)">
+        <div class="cat-icon" style="background:rgba(236,72,153,0.12);">⚠️</div>
+        Retos virales
+        <span class="cat-count" id="cnt-retos">2</span>
+      </button>
+      <button class="cat-item" data-cat="Salud mental" onclick="filterCategory(this)">
+        <div class="cat-icon" style="background:rgba(34,211,238,0.12);">🧠</div>
+        Salud mental
+        <span class="cat-count" id="cnt-salud">1</span>
+      </button>
+      <button class="cat-item" data-cat="Redes sociales" onclick="filterCategory(this)">
+        <div class="cat-icon" style="background:rgba(59,130,246,0.12);">📱</div>
+        Redes sociales
+        <span class="cat-count" id="cnt-redes">1</span>
+      </button>
+      <button class="cat-item" data-cat="Autoestima" onclick="filterCategory(this)">
+        <div class="cat-icon" style="background:rgba(251,191,36,0.12);">⭐</div>
+        Autoestima
+        <span class="cat-count" id="cnt-auto">1</span>
+      </button>
+      <button class="cat-item" data-cat="Apoyo" onclick="filterCategory(this)">
+        <div class="cat-icon" style="background:rgba(139,92,246,0.12);">🤝</div>
+        Apoyo entre pares
+        <span class="cat-count" id="cnt-apoyo">0</span>
+      </button>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-heading">Estadísticas</div>
+      <div class="stat-mini"><span class="lbl">Hilos totales</span><span class="val" id="stat-hilos">5</span></div>
+      <div class="stat-mini"><span class="lbl">Comentarios</span><span class="val" id="stat-comments">0</span></div>
+      <div class="stat-mini"><span class="lbl">Reacciones</span><span class="val" id="stat-reactions">0</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="foro-main">
+
+    <!-- Toolbar -->
+    <div class="foro-toolbar">
+      <div class="search-wrap">
+        <i class="fa fa-search"></i>
+        <input class="foro-search" type="text" placeholder="Buscar en el foro..." id="searchInput" oninput="searchThreads()">
+      </div>
+      <button class="btn-nuevo-hilo" onclick="openModal()">+ Nuevo hilo</button>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs">
+      <button class="ftab active" onclick="sortThreads('recientes', this)">🕐 Recientes</button>
+      <button class="ftab" onclick="sortThreads('comentados', this)">💬 Más comentados</button>
+      <button class="ftab" onclick="sortThreads('reacciones', this)">🔥 Más reacciones</button>
+      <button class="ftab" onclick="sortThreads('sinrespuesta', this)">🔔 Sin respuesta</button>
+    </div>
+
+    <div class="section-lbl">📌 Destacados</div>
+    <div id="threads-container"></div>
+
+  </main>
+</div>
+
+<!-- MODAL NUEVO HILO -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <h3>✏️ Crear nuevo hilo</h3>
+    <div class="form-field">
+      <label>Título del hilo *</label>
+      <input type="text" id="newTitle" placeholder="¿De qué quieres hablar?">
+    </div>
+    <div class="form-field">
+      <label>Categoría *</label>
+      <select id="newCategory">
+        <option value="Retos virales">⚠️ Retos virales</option>
+        <option value="Salud mental">🧠 Salud mental</option>
+        <option value="Redes sociales">📱 Redes sociales</option>
+        <option value="Autoestima">⭐ Autoestima</option>
+        <option value="Apoyo">🤝 Apoyo entre pares</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label>Tu nombre / apodo *</label>
+      <input type="text" id="newAuthor" placeholder="Ej: Sofía M.">
+    </div>
+    <div class="form-field">
+      <label>Contenido *</label>
+      <textarea id="newContent" placeholder="Comparte tu experiencia, pregunta o reflexión..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-publish" onclick="publishThread()">Publicar hilo</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-msg" id="toastMsg"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-4 col-md-5 text-center text-md-start">
+        <p class="copyright-text">Copyright &copy; 2026 ThinkChallenge</p>
+      </div>
+      <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
+        <ul class="social-icon ml-lg-3">
+          <li><a href="#" class="fa fa-facebook"></a></li>
+          <li><a href="#" class="fa fa-twitter"></a></li>
+          <li><a href="#" class="fa fa-instagram"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
+
+<script>
+// ═══════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════
+const AVATARS = [
+  'linear-gradient(135deg,#3B82F6,#8B5CF6)',
+  'linear-gradient(135deg,#EC4899,#F97316)',
+  'linear-gradient(135deg,#22D3EE,#3B82F6)',
+  'linear-gradient(135deg,#34D399,#059669)',
+  'linear-gradient(135deg,#F59E0B,#EF4444)',
+  'linear-gradient(135deg,#8B5CF6,#EC4899)',
+  'linear-gradient(135deg,#0EA5E9,#6366F1)',
+];
+function rndAvatar() { return AVATARS[Math.floor(Math.random()*AVATARS.length)]; }
+
+let threads = [
+  {
+    id: 1, pinned: true,
+    title: '¿Cómo identificar si un reto viral es peligroso? Guía completa',
+    excerpt: 'Compartimos los principales indicadores de un reto viral peligroso: implica daño físico, presión de grupo, viralidad sobre seguridad. Lee antes de participar en cualquier tendencia de redes.',
+    category: 'Retos virales', author: 'Admin TC',
+    avatar: AVATARS[0], time: 'hace 3 días',
+    reactions: { '❤️': 24, '👍': 18, '😮': 7, '💪': 12 },
+    userReacted: {},
+    comments: [
+      { id:1, author:'KarenM', avatar: AVATARS[1], text:'¡Muy útil esta guía! La compartí con mis amigos.', time:'hace 2 días', likes:5, userLiked:false }
+    ]
+  },
+  {
+    id: 2, pinned: false, hot: true,
+    title: 'Mi experiencia con el "Blackout Challenge" — quiero que nadie más pase por esto',
+    excerpt: 'Hace dos meses vi ese reto en TikTok y pensé que era inofensivo. Me equivoqué. Quiero compartir lo que viví para que otros puedan informarse antes de caer en lo mismo.',
+    category: 'Retos virales', author: 'KarenM',
+    avatar: AVATARS[1], time: 'hace 5 h',
+    reactions: { '❤️': 31, '👍': 12, '😮': 20, '💪': 8 },
+    userReacted: {},
+    comments: [
+      { id:1, author:'RodriL', avatar: AVATARS[2], text:'Gracias por tu valentía al compartir esto. Que más personas lo lean.', time:'hace 4 h', likes:9, userLiked:false },
+      { id:2, author:'Admin TC', avatar: AVATARS[0], text:'Apoyamos tu testimonio. Esto salva vidas.', time:'hace 3 h', likes:14, userLiked:false }
+    ]
+  },
+  {
+    id: 3, pinned: false,
+    title: 'Consejos para hablar con tus amigos cuando te presionan a participar en retos',
+    excerpt: 'La presión social es uno de los factores más influyentes. Aquí algunas frases y estrategias que uso para mantenerme firme sin que los demás se sientan juzgados.',
+    category: 'Salud mental', author: 'RodriL',
+    avatar: AVATARS[2], time: 'hace 12 h',
+    reactions: { '❤️': 15, '👍': 22, '😮': 2, '💪': 18 },
+    userReacted: {},
+    comments: []
+  },
+  {
+    id: 4, pinned: false,
+    title: '¿Cómo el algoritmo de TikTok amplifica los retos virales peligrosos?',
+    excerpt: 'Analicé el comportamiento de los feeds durante tendencias. Las plataformas impulsan contenido por el alto engagement sin importar si es peligroso. Hay que entender cómo funciona para protegerse.',
+    category: 'Redes sociales', author: 'SofíaI',
+    avatar: AVATARS[6], time: 'hace 1 día',
+    reactions: { '❤️': 9, '👍': 27, '😮': 14, '💪': 5 },
+    userReacted: {},
+    comments: []
+  },
+  {
+    id: 5, pinned: false,
+    title: 'Reto positivo: 30 días de un acto de bondad diario 💛',
+    excerpt: 'No todos los retos tienen que ser peligrosos. Este lo inventé con mis amigos y ha cambiado cómo nos vemos. Únete y comparte tu experiencia aquí abajo.',
+    category: 'Autoestima', author: 'DiegoV',
+    avatar: AVATARS[4], time: 'hace 2 días',
+    reactions: { '❤️': 41, '👍': 33, '😮': 1, '💪': 28 },
+    userReacted: {},
+    comments: [
+      { id:1, author:'MariaP', avatar: AVATARS[5], text:'¡Me uno! Hoy hice mi primer acto: le regalé flores a mi mamá 🌸', time:'hace 1 día', likes:18, userLiked:false }
+    ]
+  }
+];
+
+let currentCategory = 'todos';
+let currentSort = 'recientes';
+let nextCommentId = 100;
+
+// ═══════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════
+function renderAll() {
+  updateStats();
+  renderThreads(getFilteredThreads());
+}
+
+function getFilteredThreads() {
+  let list = [...threads];
+
+  // category
+  if (currentCategory !== 'todos') {
+    list = list.filter(t => t.category === currentCategory);
+  }
+
+  // search
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  if (q) {
+    list = list.filter(t =>
+      t.title.toLowerCase().includes(q) ||
+      t.excerpt.toLowerCase().includes(q) ||
+      t.author.toLowerCase().includes(q)
+    );
+  }
+
+  // sort
+  if (currentSort === 'comentados') {
+    list.sort((a,b) => b.comments.length - a.comments.length);
+  } else if (currentSort === 'reacciones') {
+    list.sort((a,b) => totalReacts(b) - totalReacts(a));
+  } else if (currentSort === 'sinrespuesta') {
+    list = list.filter(t => t.comments.length === 0);
+  } else {
+    list.sort((a,b) => b.id - a.id);
+  }
+
+  // pinned always first
+  list.sort((a,b) => (b.pinned?1:0) - (a.pinned?1:0));
+  return list;
+}
+
+function totalReacts(t) {
+  return Object.values(t.reactions).reduce((s,v) => s+v, 0);
+}
+
+function renderThreads(list) {
+  const container = document.getElementById('threads-container');
+  if (!list.length) {
+    container.innerHTML = `<div class="empty-state"><i class="bi bi-chat-dots"></i><p>No hay hilos aquí todavía.</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(t => buildThreadHTML(t)).join('');
+}
+
+function buildThreadHTML(t) {
+  const totalR = totalReacts(t);
+  const totalC = t.comments.length;
+
+  const reactionBtns = Object.entries(t.reactions).map(([emoji, count]) => {
+    const active = t.userReacted[emoji] ? 'active' : '';
+    return `<button class="react-btn ${active}" onclick="toggleReact(${t.id},'${emoji}')">${emoji} <span>${count}</span></button>`;
+  }).join('');
+
+  const commentsHTML = t.comments.map(c => buildCommentHTML(t.id, c)).join('');
+
+  return `
+  <div class="thread-card ${t.pinned?'pinned':''}" id="thread-${t.id}">
+    <div class="thread-card-head">
+      <div class="thread-avatar" style="background:${t.avatar}">${t.author.slice(0,2).toUpperCase()}</div>
+      <div class="thread-body-wrap">
+        <div class="thread-top">
+          <div class="thread-title">${escHtml(t.title)}</div>
+          ${t.pinned ? '<span class="badge-pin">📌 Fijado</span>' : ''}
+          ${t.hot ? '<span class="badge-hot">🔥 Tendencia</span>' : ''}
+        </div>
+        <div class="thread-excerpt">${escHtml(t.excerpt)}</div>
+        <div class="thread-meta">
+          <span class="tag-pill">${t.category}</span>
+          <span class="thread-stat"><i class="bi bi-chat-fill"></i> ${totalC}</span>
+          <span class="thread-stat"><i class="bi bi-heart-fill"></i> ${totalR}</span>
+          <span class="thread-author-info">por <span>${escHtml(t.author)}</span> · ${t.time}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reactions-bar">
+      ${reactionBtns}
+      <button class="btn-comment-toggle" onclick="toggleComments(${t.id})">
+        <i class="bi bi-chat-dots"></i> ${totalC} comentario${totalC!==1?'s':''}
+      </button>
+    </div>
+
+    <div class="comments-section" id="comments-${t.id}">
+      <div id="comments-list-${t.id}">
+        ${commentsHTML || `<div class="empty-state" style="padding:16px 0;"><i class="bi bi-chat-dots" style="font-size:1.5rem;"></i><p style="font-size:0.82rem;">Sé el primero en comentar.</p></div>`}
+      </div>
+      <div class="comment-input-wrap">
+        <textarea class="comment-input" id="cinput-${t.id}" placeholder="Escribe un comentario..." rows="1"
+          oninput="autoResize(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendComment(${t.id});}"></textarea>
+        <button class="btn-send-comment" onclick="sendComment(${t.id})"><i class="fa fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildCommentHTML(threadId, c) {
+  const likeClass = c.userLiked ? 'liked' : '';
+  return `
+  <div class="comment-item" id="comment-${threadId}-${c.id}">
+    <div class="comment-avatar" style="background:${c.avatar}">${c.author.slice(0,2).toUpperCase()}</div>
+    <div class="comment-bubble">
+      <strong>${escHtml(c.author)}</strong>
+      <p>${escHtml(c.text)}</p>
+      <div class="comment-time">${c.time}</div>
+      <div class="comment-react">
+        <button class="c-react ${likeClass}" onclick="likeComment(${threadId},${c.id})">
+          ❤️ ${c.likes}
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════
+//  REACTIONS
+// ═══════════════════════════════════════════════
+function toggleReact(threadId, emoji) {
+  const t = threads.find(x => x.id === threadId);
+  if (!t) return;
+  if (t.userReacted[emoji]) {
+    t.reactions[emoji] = Math.max(0, t.reactions[emoji] - 1);
+    delete t.userReacted[emoji];
+  } else {
+    t.reactions[emoji]++;
+    t.userReacted[emoji] = true;
+  }
+  updateStats();
+  // re-render just reactions bar
+  const card = document.getElementById('thread-'+threadId);
+  const bar = card.querySelector('.reactions-bar');
+  const totalC = t.comments.length;
+  const reactionBtns = Object.entries(t.reactions).map(([em, count]) => {
+    const active = t.userReacted[em] ? 'active' : '';
+    return `<button class="react-btn ${active}" onclick="toggleReact(${t.id},'${em}')">${em} <span>${count}</span></button>`;
+  }).join('');
+  bar.innerHTML = reactionBtns + `<button class="btn-comment-toggle" onclick="toggleComments(${t.id})"><i class="bi bi-chat-dots"></i> ${totalC} comentario${totalC!==1?'s':''}</button>`;
+
+  // update stat in meta
+  const statHeart = card.querySelector('.thread-stat:nth-child(2)');
+  if (statHeart) statHeart.innerHTML = `<i class="bi bi-heart-fill"></i> ${totalReacts(t)}`;
+}
+
+// ═══════════════════════════════════════════════
+//  COMMENTS
+// ═══════════════════════════════════════════════
+function toggleComments(threadId) {
+  const section = document.getElementById('comments-'+threadId);
+  section.classList.toggle('open');
+}
+
+function sendComment(threadId) {
+  const input = document.getElementById('cinput-'+threadId);
+  const text = input.value.trim();
+  if (!text) return;
+
+  const t = threads.find(x => x.id === threadId);
+  const newComment = {
+    id: nextCommentId++,
+    author: 'Tú',
+    avatar: rndAvatar(),
+    text, time: 'ahora mismo',
+    likes: 0, userLiked: false
+  };
+  t.comments.push(newComment);
+
+  // append comment without full re-render
+  const list = document.getElementById('comments-list-'+threadId);
+  // remove empty state if present
+  const empty = list.querySelector('.empty-state');
+  if (empty) empty.remove();
+  list.insertAdjacentHTML('beforeend', buildCommentHTML(threadId, newComment));
+
+  // update comment toggle button
+  const bar = document.getElementById('thread-'+threadId).querySelector('.btn-comment-toggle');
+  const totalC = t.comments.length;
+  bar.innerHTML = `<i class="bi bi-chat-dots"></i> ${totalC} comentario${totalC!==1?'s':''}`;
+
+  // update meta stat
+  const card = document.getElementById('thread-'+threadId);
+  const statChat = card.querySelector('.thread-stat:nth-child(1)');
+  if (statChat) statChat.innerHTML = `<i class="bi bi-chat-fill"></i> ${totalC}`;
+
+  input.value = '';
+  input.style.height = '';
+  updateStats();
+  showToast('💬 Comentario publicado');
+}
+
+function likeComment(threadId, commentId) {
+  const t = threads.find(x => x.id === threadId);
+  const c = t.comments.find(x => x.id === commentId);
+  if (!c) return;
+  if (c.userLiked) {
+    c.likes = Math.max(0, c.likes - 1);
+    c.userLiked = false;
+  } else {
+    c.likes++;
+    c.userLiked = true;
+  }
+  const btn = document.querySelector(`#comment-${threadId}-${commentId} .c-react`);
+  if (btn) {
+    btn.textContent = `❤️ ${c.likes}`;
+    btn.classList.toggle('liked', c.userLiked);
+  }
+  updateStats();
+}
+
+// ═══════════════════════════════════════════════
+//  MODAL + PUBLISH
+// ═══════════════════════════════════════════════
+function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+function publishThread() {
+  const title   = document.getElementById('newTitle').value.trim();
+  const cat     = document.getElementById('newCategory').value;
+  const author  = document.getElementById('newAuthor').value.trim() || 'Anónimo';
+  const content = document.getElementById('newContent').value.trim();
+
+  if (!title || !content) { showToast('⚠️ Completa el título y contenido'); return; }
+
+  const newThread = {
+    id: Date.now(),
+    pinned: false, hot: false,
+    title, excerpt: content,
+    category: cat, author,
+    avatar: rndAvatar(),
+    time: 'ahora mismo',
+    reactions: { '❤️': 0, '👍': 0, '😮': 0, '💪': 0 },
+    userReacted: {},
+    comments: []
+  };
+  threads.unshift(newThread);
+
+  document.getElementById('newTitle').value = '';
+  document.getElementById('newAuthor').value = '';
+  document.getElementById('newContent').value = '';
+  closeModal();
+  renderAll();
+  updateCategoryCounts();
+  showToast('✅ Hilo publicado con éxito');
+}
+
+// ═══════════════════════════════════════════════
+//  FILTER / SORT / SEARCH
+// ═══════════════════════════════════════════════
+function filterCategory(btn) {
+  document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCategory = btn.dataset.cat;
+  renderThreads(getFilteredThreads());
+}
+
+function sortThreads(type, btn) {
+  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentSort = type;
+  renderThreads(getFilteredThreads());
+}
+
+function searchThreads() { renderThreads(getFilteredThreads()); }
+
+// ═══════════════════════════════════════════════
+//  STATS
+// ═══════════════════════════════════════════════
+function updateStats() {
+  document.getElementById('stat-hilos').textContent = threads.length;
+  const totalComments = threads.reduce((s,t) => s + t.comments.length, 0);
+  document.getElementById('stat-comments').textContent = totalComments;
+  const totalReactions = threads.reduce((s,t) => s + totalReacts(t), 0);
+  document.getElementById('stat-reactions').textContent = totalReactions;
+  updateCategoryCounts();
+}
+
+function updateCategoryCounts() {
+  const catMap = { 'Retos virales':'cnt-retos','Salud mental':'cnt-salud','Redes sociales':'cnt-redes','Autoestima':'cnt-auto','Apoyo':'cnt-apoyo' };
+  document.getElementById('cnt-todos').textContent = threads.length;
+  Object.entries(catMap).forEach(([cat, id]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = threads.filter(t => t.category === cat).length;
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════════
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+
+function escHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toastMsg');
+  t.textContent = msg;
+  t.style.display = 'block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3000);
+}
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof AOS !== 'undefined') AOS.init({ duration: 600, once: true });
+  renderAll();
+});
+</script>
+
+  <script src="js/chatbot.js"></script>
+
+  <div id="chat-button" class="chat-button">
+    <i class="fa fa-robot" aria-hidden="true"></i>
+  </div>
+
+  <!-- VENTANA CHATBOT: Prevención de Retos Virales -->
+<div id="chat-container" class="chat-container">
+  <div class="chat-header">
+    <span class="chat-logo">
+      <img src="images/bot-conversacional.png" alt="Logo del Chatbot">
+    </span>
+    <h3 class="chat-title">ThinkChallenge</h3>
+    <div class="chat-controls">
+      <span id="expand-chat" class="chat-control-btn">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+      </span>
+      <span id="close-chat" class="chat-control-btn">&times;</span>
+    </div>
+  </div>
+
+  <div class="chat-body">
+    <div class="welcome-message">
+      <p>👋 ¡Hola! Soy <strong>ThinkChallenge</strong>, tu guía para mantenerte seguro en internet.</p>
+      <p>¿Quieres saber cómo identificar o evitar retos virales peligrosos?</p>
+    </div>
+
+    <div class="chat-options">
+      <button class="chat-option-button">⚠️ Reconocer riesgos</button>
+      <button class="chat-option-button">💡 Qué hacer si te presionan</button>
+      <button class="chat-option-button">❤️ Consejos de autocuidado</button>
+    </div>
+
+    <div id="messages-container" class="messages-container">
+      <!-- Aquí aparecerán los mensajes -->
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" id="user-input" placeholder="Escribe tu duda o cuenta tu experiencia...">
+    <button id="send-button">
+      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+</body>
+</html>

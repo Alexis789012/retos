@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>ThinkChallenge – Test de Retos Virales</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <script src="https://kit.fontawesome.com/274421acc6.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/tooplate-gymso-style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --blue-dark: #0056b3;
+      --blue-mid: #007BFF;
+      --blue-light: #dceefb;
+      --yellow: #ffeb3b;
+      --white: #ffffff;
+      --dark: #171819;
+      --gray: #909090;
+      --p-color: #555;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f4f8ff;
+      color: var(--dark);
+    }
+
+    /* ---- NAVBAR (idéntico al index original) ---- */
+    .navbar {
+      background-color: #278fff;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .navbar-brand {
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: bold;
+      line-height: normal;
+      padding-top: 0;
+    }
+    .site-name {
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link {
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .nav-item .nav-link {
+      display: block;
+      color: #ffffff !important;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+      padding: 2px 6px;
+    }
+    .nav-item .nav-link:hover {
+      color: #1400ED !important;
+    }
+    .navbar-toggler {
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      margin: 0 10px 0 0;
+      width: 30px;
+      height: 35px;
+      outline: none;
+    }
+    .navbar-toggler:focus { outline: none; box-shadow: none; }
+    .navbar-toggler-icon {
+      background-color: #1400ED;
+      display: block;
+      width: 30px;
+      height: 2px;
+      position: relative;
+      transition: background 10ms 300ms ease;
+    }
+    .navbar-toggler-icon::before,
+    .navbar-toggler-icon::after {
+      position: absolute;
+      right: 0; left: 0;
+      background: #1400ED;
+      width: 30px;
+      height: 2px;
+      content: '';
+      transition: top 300ms 350ms ease, transform 300ms 50ms ease;
+    }
+    .navbar-toggler-icon::before { top: -8px; }
+    .navbar-toggler-icon::after  { top:  8px; }
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon { background: transparent; }
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before { transform: rotate(45deg);  top: 0; transition: top 300ms 50ms ease, transform 300ms 350ms ease; }
+    .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after  { transform: rotate(-45deg); top: 0; transition: top 300ms 50ms ease, transform 300ms 350ms ease; }
+
+    /* ---- HERO BANNER ---- */
+    .test-hero {
+      background: linear-gradient(135deg, #0056b3 0%, #007BFF 60%, #00c6ff 100%);
+      padding: 110px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .test-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 50%;
+    }
+    .test-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 240px; height: 240px;
+      background: rgba(255,235,59,0.1);
+      border-radius: 50%;
+    }
+    .test-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+    .test-hero p {
+      color: rgba(255,255,255,0.88);
+      font-size: 1.1rem;
+      max-width: 580px;
+      margin: 14px auto 0;
+    }
+    .test-hero .badge-pill {
+      display: inline-block;
+      background: var(--yellow);
+      color: #333;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    /* ---- PROGRESS BAR ---- */
+    .progress-wrapper {
+      max-width: 680px;
+      margin: 0 auto 24px;
+      padding: 0 16px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+    .progress { height: 8px; border-radius: 10px; background: #dde8f5; }
+    .progress-bar {
+      background: linear-gradient(90deg, #007BFF, #00c6ff);
+      border-radius: 10px;
+      transition: width 0.5s ease;
+    }
+
+    /* ---- CARD FORM ---- */
+    .test-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,86,179,0.10);
+      padding: 40px 44px;
+      max-width: 680px;
+      margin: -30px auto 60px;
+      position: relative;
+      z-index: 2;
+    }
+    @media(max-width:600px){ .test-card { padding: 28px 18px; } }
+
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.45rem;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+    }
+    .step-sub {
+      font-size: 0.92rem;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    /* Options grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .opt-btn {
+      border: 2px solid #d0e4f7;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 500;
+      background: #f4f8ff;
+      color: #333;
+      transition: all 0.22s;
+      position: relative;
+    }
+    .opt-btn .opt-icon { font-size: 1.5rem; display: block; margin-bottom: 6px; }
+    .opt-btn:hover { border-color: var(--blue-mid); background: #e8f2ff; }
+    .opt-btn.selected {
+      border-color: var(--blue-mid);
+      background: linear-gradient(135deg, #e8f2ff, #dceefb);
+      color: var(--blue-dark);
+      box-shadow: 0 4px 14px rgba(0,123,255,0.15);
+    }
+    .opt-btn.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 6px; right: 8px;
+      font-size: 0.75rem;
+      color: var(--blue-mid);
+      font-weight: 700;
+    }
+
+    /* Inputs */
+    .form-control, .form-select {
+      border: 2px solid #d0e4f7;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      background: #f4f8ff;
+      transition: border 0.2s;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.12);
+      background: #fff;
+    }
+    label { font-weight: 500; font-size: 0.9rem; color: #444; margin-bottom: 6px; display: block; }
+
+    /* Slider */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--blue-mid) 0%, #d0e4f7 0%);
+      outline: none;
+      margin: 10px 0 4px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px; height: 20px;
+      background: var(--blue-mid);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+    }
+    .range-labels { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--gray); }
+
+    /* Checkbox custom */
+    .check-group { display: flex; flex-direction: column; gap: 10px; }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 2px solid #d0e4f7;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #f4f8ff;
+      transition: all 0.2s;
+      font-size: 0.92rem;
+    }
+    .check-item:hover { border-color: var(--blue-mid); background: #e8f2ff; }
+    .check-item input[type=checkbox] {
+      width: 18px; height: 18px;
+      accent-color: var(--blue-mid);
+      cursor: pointer;
+    }
+    .check-item.checked { border-color: var(--blue-mid); background: #e8f2ff; }
+
+    /* Nav buttons */
+    .nav-btns { display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px; }
+    .btn-prev {
+      background: #f0f4fa;
+      color: var(--blue-dark);
+      border: 2px solid #d0e4f7;
+      border-radius: 12px;
+      padding: 12px 28px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-prev:hover { background: #dde8f5; }
+    .btn-next {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 32px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(0,86,179,0.25);
+    }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,86,179,0.35); }
+    .btn-submit {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(40,167,69,0.3);
+      width: 100%;
+    }
+    .btn-submit:hover { transform: translateY(-2px); }
+
+    /* ---- RESULTS ---- */
+    #results-section { display: none; max-width: 760px; margin: 0 auto 60px; padding: 0 16px; }
+
+    .congrats-banner {
+      background: linear-gradient(135deg, #0056b3, #007BFF);
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .congrats-banner::before {
+      content: '🎉';
+      font-size: 5rem;
+      position: absolute;
+      opacity: 0.08;
+      top: -10px; right: -10px;
+    }
+    .congrats-banner h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .congrats-banner p { color: rgba(255,255,255,0.88); font-size: 1rem; }
+    .confetti-emoji { font-size: 1.8rem; }
+
+    /* Result cards */
+    .result-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 30px rgba(0,86,179,0.09);
+      padding: 30px 32px;
+      margin-bottom: 24px;
+    }
+    .result-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .result-card h3 .icon-badge {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #e8f2ff, #dceefb);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* Recommendation items */
+    .rec-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #f4f8ff;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--blue-mid);
+    }
+    .rec-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .rec-text { font-size: 0.92rem; color: #444; line-height: 1.55; }
+    .rec-text strong { color: var(--blue-dark); }
+
+    /* Chart */
+    .chart-container {
+      position: relative;
+      height: 320px;
+      margin: 10px 0 20px;
+    }
+
+    /* Improvement steps */
+    .improve-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-content strong { display: block; color: var(--blue-dark); font-size: 0.95rem; margin-bottom: 4px; }
+    .step-content p { font-size: 0.88rem; color: #555; margin: 0; }
+
+    /* Clinics */
+    .clinic-card {
+      border: 2px solid #d0e4f7;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      background: #f4f8ff;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .clinic-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .clinic-info h5 { font-size: 0.95rem; font-weight: 700; color: var(--blue-dark); margin-bottom: 4px; }
+    .clinic-info p { font-size: 0.83rem; color: #555; margin: 0 0 6px; }
+    .clinic-info a {
+      font-size: 0.82rem;
+      color: var(--blue-mid);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .clinic-info a:hover { text-decoration: underline; }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+    .tag-danger { background: #ffe0e0; color: #c0392b; }
+    .tag-warning { background: #fff3cd; color: #856404; }
+    .tag-ok { background: #d4edda; color: #155724; }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 1px solid #efebeb;
+      padding: 1.5rem 0;
+      background: #fff;
+    }
+    .site-footer p { font-size: 0.9rem; color: #888; }
+    .social-icon { list-style: none; padding: 0; margin: 5px 0 0; display: flex; gap: 12px; }
+    .social-icon li a { color: #888; font-size: 1.1rem; }
+    .social-icon li a:hover { color: var(--blue-mid); }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.5s ease both; }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      70% { transform: scale(1.06); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop-in { animation: popIn 0.5s ease both; }
+
+    .emoji-burst {
+      animation: popIn 0.6s ease 0.1s both;
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+<!-- MENU BAR (idéntico al index) -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+
+    <a class="navbar-brand" href="index.html">
+      <span class="site-name">ThinkChallenge</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-lg-auto">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link smoothScroll">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html#about" class="nav-link smoothScroll">Bienvenida</a>
+        </li>
+        <li class="nav-item">
+          <a href="foro.html" class="nav-link smoothScroll">Foro</a>
+        </li>
+        <li class="nav-item">
+          <a href="test-retos.html" class="nav-link smoothScroll">Test</a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html#class" class="nav-link smoothScroll">Retos seguros</a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html#schedule" class="nav-link smoothScroll">Aprendizaje</a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html#contact" class="nav-link smoothScroll">Apoyo</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link smoothScroll" data-toggle="modal" data-target="#IniciarSesion">Login</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="test-hero">
+  <div class="container">
+    <span class="badge-pill">📋 TEST INTERACTIVO</span>
+    <h1>¿Cómo te afectan los retos virales?</h1>
+    <p>Responde honestamente estas preguntas. Al final recibirás un análisis personalizado y recursos de ayuda reales.</p>
+  </div>
+</div>
+
+<!-- FORM CARD -->
+<div class="container" id="form-section">
+  <div class="progress-wrapper mt-4">
+    <div class="progress-label">
+      <span id="progress-text">Paso 1 de 7</span>
+      <span id="progress-pct">14%</span>
+    </div>
+    <div class="progress">
+      <div class="progress-bar" id="progress-bar" style="width:14%"></div>
+    </div>
+  </div>
+
+  <div class="test-card fade-up">
+
+    <!-- STEP 1: Datos personales -->
+    <div class="step active" id="step-1">
+      <div class="step-title">👤 Cuéntanos sobre ti</div>
+      <div class="step-sub">Esta información nos ayudará a darte recomendaciones más personalizadas.</div>
+
+      <div class="mb-3">
+        <label>¿Cuántos años tienes?</label>
+        <input type="number" class="form-control" id="q-edad" min="8" max="90" placeholder="Ej. 17">
+      </div>
+      <div class="mb-3">
+        <label>Género</label>
+        <select class="form-select" id="q-genero">
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option value="hombre">Hombre</option>
+          <option value="mujer">Mujer</option>
+          <option value="nb">No binario / Prefiero no decirlo</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label>¿En qué país o ciudad vives?</label>
+        <input type="text" class="form-control" id="q-lugar" placeholder="Ej. Ciudad de México, México">
+      </div>
+      <div class="nav-btns">
+        <button class="btn-next" onclick="nextStep(1)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Exposición a retos -->
+    <div class="step" id="step-2">
+      <div class="step-title">📱 Exposición a retos virales</div>
+      <div class="step-sub">Selecciona todas las opciones que apliquen a tu experiencia.</div>
+
+      <label class="mb-2">¿Con qué frecuencia ves retos virales en redes sociales?</label>
+      <div class="options-grid mb-4" id="q-frecuencia">
+        <div class="opt-btn" onclick="selectOne(this,'q-frecuencia')"><span class="opt-icon">📅</span>Todos los días</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-frecuencia')"><span class="opt-icon">🗓️</span>Varias veces a la semana</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-frecuencia')"><span class="opt-icon">🌕</span>Una vez a la semana</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-frecuencia')"><span class="opt-icon">🌑</span>Casi nunca</div>
+      </div>
+
+      <label class="mb-2">¿Has participado en algún reto viral?</label>
+      <div class="options-grid mb-4" id="q-participo">
+        <div class="opt-btn" onclick="selectOne(this,'q-participo')"><span class="opt-icon">✅</span>Sí, varios</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-participo')"><span class="opt-icon">☑️</span>Sí, uno</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-participo')"><span class="opt-icon">🚫</span>No, pero sentí presión</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-participo')"><span class="opt-icon">❌</span>Nunca</div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(2)">← Anterior</button>
+        <button class="btn-next" onclick="nextStep(2)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Motivaciones -->
+    <div class="step" id="step-3">
+      <div class="step-title">🤔 ¿Por qué lo harías (o lo hiciste)?</div>
+      <div class="step-sub">Selecciona las razones que mejor describen tu situación. Puedes elegir varias.</div>
+
+      <div class="check-group mb-4" id="q-motivos">
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="popularidad"> 👑 Para ganar popularidad o seguidores
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="presion"> 👥 Por presión de amigos o compañeros
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="diversion"> 😂 Solo por diversión o emoción
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="curiosidad"> 🔍 Curiosidad, quería saber qué se sentía
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="aburrimiento"> 😴 Aburrimiento o falta de actividades
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="autoestima"> 💔 Para sentirme aceptado/a o valorado/a
+        </label>
+        <label class="check-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="ninguno"> 🙅 No me interesan los retos virales
+        </label>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(3)">← Anterior</button>
+        <button class="btn-next" onclick="nextStep(3)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Estado emocional -->
+    <div class="step" id="step-4">
+      <div class="step-title">💭 ¿Cómo te sientes últimamente?</div>
+      <div class="step-sub">Selecciona las emociones que más te identifican en este momento.</div>
+
+      <div class="options-grid mb-4" id="q-emociones" style="grid-template-columns: repeat(auto-fill, minmax(120px,1fr))">
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😰</span>Ansioso/a</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😔</span>Triste</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😡</span>Enojado/a</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😊</span>Feliz</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😕</span>Confundido/a</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😌</span>Tranquilo/a</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😓</span>Agotado/a</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">🥺</span>Solo/a</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">😤</span>Presionado/a</div>
+        <div class="opt-btn" onclick="toggleMulti(this,'q-emociones')"><span class="opt-icon">🤩</span>Entusiasmado/a</div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(4)">← Anterior</button>
+        <button class="btn-next" onclick="nextStep(4)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Autoestima y bienestar -->
+    <div class="step" id="step-5">
+      <div class="step-title">🌡️ Tu bienestar digital</div>
+      <div class="step-sub">Desliza para indicar tu nivel de acuerdo con cada afirmación.</div>
+
+      <div class="mb-4">
+        <label>Me siento bien con mi imagen en redes sociales</label>
+        <input type="range" id="q-imagen" min="1" max="5" value="3" oninput="updateRange(this,'lbl-imagen')">
+        <div class="range-labels"><span>Nada</span><span id="lbl-imagen">3 / 5</span><span>Mucho</span></div>
+      </div>
+      <div class="mb-4">
+        <label>Siento presión de mis amigos para hacer cosas que no quiero</label>
+        <input type="range" id="q-presion" min="1" max="5" value="3" oninput="updateRange(this,'lbl-presion')">
+        <div class="range-labels"><span>Nada</span><span id="lbl-presion">3 / 5</span><span>Mucho</span></div>
+      </div>
+      <div class="mb-4">
+        <label>Paso más de 3 horas diarias en redes sociales</label>
+        <input type="range" id="q-horas" min="1" max="5" value="3" oninput="updateRange(this,'lbl-horas')">
+        <div class="range-labels"><span>Nunca</span><span id="lbl-horas">3 / 5</span><span>Siempre</span></div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(5)">← Anterior</button>
+        <button class="btn-next" onclick="nextStep(5)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: Impacto percibido -->
+    <div class="step" id="step-6">
+      <div class="step-title">⚠️ Riesgos y consecuencias</div>
+      <div class="step-sub">Responde con honestidad; no hay respuestas incorrectas.</div>
+
+      <label class="mb-2">¿Conoces a alguien que se haya lastimado por un reto viral?</label>
+      <div class="options-grid mb-4" id="q-conoce">
+        <div class="opt-btn" onclick="selectOne(this,'q-conoce')"><span class="opt-icon">😞</span>Sí, a alguien cercano</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-conoce')"><span class="opt-icon">📰</span>Lo vi en noticias</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-conoce')"><span class="opt-icon">🤷</span>No lo sé</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-conoce')"><span class="opt-icon">✅</span>No conozco a nadie</div>
+      </div>
+
+      <label class="mb-2">¿Hablarías con un adulto o profesional si te sintieras presionado/a?</label>
+      <div class="options-grid mb-4" id="q-ayuda">
+        <div class="opt-btn" onclick="selectOne(this,'q-ayuda')"><span class="opt-icon">💬</span>Sí, sin dudar</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-ayuda')"><span class="opt-icon">🤔</span>Tal vez</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-ayuda')"><span class="opt-icon">😶</span>Me daría vergüenza</div>
+        <div class="opt-btn" onclick="selectOne(this,'q-ayuda')"><span class="opt-icon">🚫</span>No, prefiero solo</div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn-prev" onclick="prevStep(6)">← Anterior</button>
+        <button class="btn-next" onclick="nextStep(6)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 7: Reflexión final -->
+    <div class="step" id="step-7">
+      <div class="step-title">✍️ Reflexión final</div>
+      <div class="step-sub">Cuéntanos un poco más sobre lo que sientes. Tu respuesta es confidencial.</div>
+
+      <div class="mb-3">
+        <label>¿Qué es lo que más te preocupa de los retos virales o del ambiente digital que te rodea?</label>
+        <textarea class="form-control" id="q-preocupa" rows="3" placeholder="Escribe aquí con total libertad..."></textarea>
+      </div>
+      <div class="mb-4">
+        <label>¿Hay algo que te gustaría cambiar en tu vida digital o en tu bienestar emocional?</label>
+        <textarea class="form-control" id="q-cambiar" rows="3" placeholder="Cualquier pensamiento es válido..."></textarea>
+      </div>
+
+      <div class="nav-btns" style="flex-direction:column; align-items:stretch;">
+        <button class="btn-prev mb-2" onclick="prevStep(7)" style="width:100%; text-align:center;">← Anterior</button>
+        <button class="btn-submit" onclick="submitTest()">🎯 Ver mis resultados</button>
+      </div>
+    </div>
+
+  </div><!-- /test-card -->
+</div><!-- /container -->
+
+
+<!-- ============ RESULTS ============ -->
+<div id="results-section" class="container">
+
+  <!-- Congrats -->
+  <div class="congrats-banner pop-in" id="congrats-banner">
+    <span class="emoji-burst">🏆</span>
+    <h2>¡Felicitaciones, has terminado el test con éxito!</h2>
+    <p>Gracias por tu honestidad. Aquí tienes tu análisis personalizado basado en tus respuestas.</p>
+    <div id="user-tag-area" class="mt-3"></div>
+  </div>
+
+  <!-- Recomendaciones -->
+  <div class="result-card fade-up">
+    <h3><span class="icon-badge">💡</span> Recomendaciones para ti</h3>
+    <div id="recomendaciones-container"></div>
+  </div>
+
+  <!-- Gráfica de emociones -->
+  <div class="result-card fade-up">
+    <h3><span class="icon-badge">📊</span> Mapa de tus emociones</h3>
+    <p style="font-size:0.88rem;color:#888;margin-bottom:12px;">Así se distribuyen las emociones que seleccionaste en el test.</p>
+    <div class="chart-container">
+      <canvas id="emocionesChart"></canvas>
+    </div>
+    <div id="emociones-leyenda" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;"></div>
+  </div>
+
+  <!-- Áreas de mejora -->
+  <div class="result-card fade-up">
+    <h3><span class="icon-badge">🚀</span> ¿En qué puedes mejorar y cómo?</h3>
+    <div id="mejoras-container"></div>
+  </div>
+
+  <!-- Clínicas / recursos -->
+  <div class="result-card fade-up">
+    <h3><span class="icon-badge">🏥</span> Recursos y clínicas reales cerca de ti</h3>
+    <p style="font-size:0.88rem;color:#888;margin-bottom:16px;">Seleccionados según el tipo de apoyo que podrías necesitar basándonos en tus respuestas.</p>
+    <div id="clinicas-container"></div>
+  </div>
+
+  <!-- CTA -->
+  <div style="text-align:center;margin-bottom:60px;">
+    <button onclick="resetTest()" style="background:linear-gradient(135deg,#0056b3,#007BFF);color:#fff;border:none;border-radius:14px;padding:14px 36px;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,86,179,0.25);">
+      🔄 Hacer el test de nuevo
+    </button>
+  </div>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-5">
+        <p class="copyright-text">Copyright &copy; 2026 ThinkChallenge</p>
+      </div>
+      <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
+        <ul class="social-icon ms-lg-3">
+          <li><a href="#" class="fa fa-facebook"></a></li>
+          <li><a href="#" class="fa fa-twitter"></a></li>
+          <li><a href="#" class="fa fa-instagram"></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
+
+<script>
+// ---- STATE ----
+let currentStep = 1;
+const totalSteps = 7;
+let chartInstance = null;
+
+// ---- STEP NAVIGATION ----
+function updateProgress(step) {
+  const pct = Math.round((step / totalSteps) * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `Paso ${step} de ${totalSteps}`;
+  document.getElementById('progress-pct').textContent = pct + '%';
+}
+
+function goToStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  currentStep = n;
+  updateProgress(n);
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+
+function nextStep(from) {
+  if (!validateStep(from)) return;
+  goToStep(from + 1);
+}
+
+function prevStep(from) {
+  goToStep(from - 1);
+}
+
+// ---- VALIDATION ----
+function validateStep(step) {
+  if (step === 1) {
+    const edad = document.getElementById('q-edad').value;
+    const genero = document.getElementById('q-genero').value;
+    const lugar = document.getElementById('q-lugar').value.trim();
+    if (!edad || !genero || !lugar) {
+      alert('⚠️ Por favor completa todos los campos antes de continuar.');
+      return false;
+    }
+  }
+  return true;
+}
+
+// ---- OPTION SELECTORS ----
+function selectOne(el, groupId) {
+  document.querySelectorAll('#' + groupId + ' .opt-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function toggleMulti(el, groupId) {
+  el.classList.toggle('selected');
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  el.querySelector('input[type=checkbox]').checked = el.classList.contains('checked');
+}
+
+// ---- RANGE ----
+function updateRange(input, labelId) {
+  document.getElementById(labelId).textContent = input.value + ' / 5';
+  // update gradient
+  const pct = ((input.value - 1) / 4) * 100;
+  input.style.background = `linear-gradient(90deg, #007BFF ${pct}%, #d0e4f7 ${pct}%)`;
+}
+// init ranges
+['q-imagen','q-presion','q-horas'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) { const pct = ((el.value-1)/4)*100; el.style.background=`linear-gradient(90deg,#007BFF ${pct}%,#d0e4f7 ${pct}%)`; }
+});
+
+
+// ---- SUBMIT ----
+function submitTest() {
+  // Gather answers
+  const edad = parseInt(document.getElementById('q-edad').value) || 16;
+  const genero = document.getElementById('q-genero').value;
+  const lugar = document.getElementById('q-lugar').value || 'tu región';
+  const frecuencia = getSelected('q-frecuencia');
+  const participo = getSelected('q-participo');
+  const motivos = getChecked('q-motivos');
+  const emociones = getMultiSelected('q-emociones');
+  const imagen = parseInt(document.getElementById('q-imagen').value);
+  const presionVal = parseInt(document.getElementById('q-presion').value);
+  const horas = parseInt(document.getElementById('q-horas').value);
+  const ayuda = getSelected('q-ayuda');
+
+  // Hide form, show results
+  document.getElementById('form-section').style.display = 'none';
+  const rs = document.getElementById('results-section');
+  rs.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Build user tags
+  const tagArea = document.getElementById('user-tag-area');
+  tagArea.innerHTML = `
+    <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4)">📅 ${edad} años</span>
+    <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4)">${genero==='hombre'?'👦':'genero'==='mujer'?'👧':'🧑'} ${genero}</span>
+    <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4)">📍 ${lugar}</span>
+  `;
+
+  // ---- RECOMENDACIONES ----
+  const recs = buildRecomendaciones(edad, motivos, emociones, presionVal, imagen, ayuda, participo);
+  const recCont = document.getElementById('recomendaciones-container');
+  recCont.innerHTML = recs.map(r => `
+    <div class="rec-item">
+      <span class="rec-icon">${r.icon}</span>
+      <div class="rec-text"><strong>${r.title}</strong><br>${r.desc}</div>
+    </div>
+  `).join('');
+
+  // ---- CHART ----
+  buildEmocionesChart(emociones);
+
+  // ---- MEJORAS ----
+  const mejoras = buildMejoras(presionVal, imagen, horas, motivos, ayuda);
+  document.getElementById('mejoras-container').innerHTML = mejoras.map((m, i) => `
+    <div class="improve-step">
+      <div class="step-num">${i+1}</div>
+      <div class="step-content">
+        <strong>${m.title}</strong>
+        <p>${m.desc}</p>
+      </div>
+    </div>
+  `).join('');
+
+  // ---- CLÍNICAS ----
+  const clinicas = buildClinicas(emociones, motivos, presionVal, lugar);
+  document.getElementById('clinicas-container').innerHTML = clinicas.map(c => `
+    <div class="clinic-card">
+      <div class="clinic-icon"><i class="${c.icono}"></i></div>
+      <div class="clinic-info">
+        <h5>${c.nombre}</h5>
+        <p>${c.desc}</p>
+        <a href="${c.url}" target="_blank">🔗 Visitar sitio web</a>
+        ${c.tel ? `<br><small style="color:#666">📞 ${c.tel}</small>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---- HELPERS ----
+function getSelected(groupId) {
+  const sel = document.querySelector('#' + groupId + ' .opt-btn.selected');
+  return sel ? sel.textContent.trim() : '';
+}
+function getMultiSelected(groupId) {
+  return Array.from(document.querySelectorAll('#' + groupId + ' .opt-btn.selected')).map(b => b.textContent.trim());
+}
+function getChecked(groupId) {
+  return Array.from(document.querySelectorAll('#' + groupId + ' .check-item.checked')).map(b => b.querySelector('input').value);
+}
+
+// ---- RECOMENDACIONES LOGIC ----
+function buildRecomendaciones(edad, motivos, emociones, presion, imagen, ayuda, participo) {
+  const recs = [];
+
+  if (motivos.includes('presion') || presion >= 4) {
+    recs.push({ icon: '🛡️', title: 'Aprende a decir NO con seguridad', desc: 'La presión de grupo es una de las causas más comunes. Practica respuestas asertivas: "No me interesa, gracias" es suficiente. No necesitas justificarte ante nadie.' });
+  }
+  if (motivos.includes('autoestima') || imagen <= 2) {
+    recs.push({ icon: '💪', title: 'Trabaja tu autoestima digital', desc: 'Tu valor no depende de likes ni de retos. Dedica tiempo a actividades fuera de redes sociales que te hagan sentir capaz y valioso/a.' });
+  }
+  if (emociones.some(e => e.includes('Ansios') || e.includes('Triste') || e.includes('Solo'))) {
+    recs.push({ icon: '❤️', title: 'Cuida tu salud mental', desc: 'Las emociones difíciles (tristeza, ansiedad, soledad) pueden aumentar la vulnerabilidad ante retos peligrosos. Hablar con alguien de confianza puede marcar una gran diferencia.' });
+  }
+  if (motivos.includes('aburrimiento')) {
+    recs.push({ icon: '🎨', title: 'Busca actividades alternativas', desc: 'El aburrimiento es un impulso frecuente. Prueba deporte, arte, música, cocina u otras hobbies que te generen emociones positivas sin riesgos.' });
+  }
+  if (edad < 15) {
+    recs.push({ icon: '👨‍👩‍👧', title: 'Habla con un adulto de confianza', desc: 'A tu edad, contar con el apoyo de un familiar o maestro es muy importante. No tienes que enfrentar la presión digital solo/a.' });
+  }
+  if (participo && (participo.includes('Sí, varios') || participo.includes('Sí, uno'))) {
+    recs.push({ icon: '⚠️', title: 'Reflexiona sobre los riesgos', desc: 'Haber participado en retos no te hace mala persona, pero es importante entender los riesgos físicos y emocionales. Informarte es el primer paso para protegerte.' });
+  }
+  if (ayuda && (ayuda.includes('vergüenza') || ayuda.includes('solo'))) {
+    recs.push({ icon: '🤝', title: 'Pedir ayuda es una fortaleza', desc: 'Muchas personas creen que pedir ayuda es debilidad, pero es lo contrario. Los profesionales existen para apoyarte sin juzgarte.' });
+  }
+
+  // default
+  recs.push({ icon: '📵', title: 'Establece límites saludables con las redes', desc: 'Configura el tiempo de uso en tu celular. Pequeños descansos digitales mejoran el estado de ánimo y reducen la presión de compararte con otros.' });
+  recs.push({ icon: '🧠', title: 'Piensa antes de actuar (o compartir)', desc: 'Antes de hacer o difundir un reto, pregúntate: ¿esto me beneficia? ¿podría lastimar a alguien? Si hay duda, no lo hagas.' });
+
+  return recs;
+}
+
+// ---- CHART ----
+const emocionColors = {
+  'Ansioso/a': '#FF6B6B',
+  'Triste': '#778CA3',
+  'Enojado/a': '#FF4500',
+  'Feliz': '#FFD700',
+  'Confundido/a': '#A29BFE',
+  'Tranquilo/a': '#00B894',
+  'Agotado/a': '#636E72',
+  'Solo/a': '#74B9FF',
+  'Presionado/a': '#FDCB6E',
+  'Entusiasmado/a': '#00CEC9'
+};
+
+function buildEmocionesChart(emociones) {
+  if (chartInstance) { chartInstance.destroy(); }
+
+  // If none selected, use a placeholder
+  let labels, data, colors;
+  if (emociones.length === 0) {
+    labels = ['Sin emociones seleccionadas'];
+    data = [1];
+    colors = ['#d0e4f7'];
+  } else {
+    // Clean labels (remove emoji prefix)
+    const cleaned = emociones.map(e => {
+      const parts = e.split(/\s+/);
+      return parts.slice(1).join(' ') || e;
+    });
+    // Count intensity (each selected = 1, but weight by position for visual)
+    labels = cleaned;
+    data = cleaned.map((_, i) => Math.max(1, 5 - i % 3));
+    colors = cleaned.map(l => {
+      for (const key in emocionColors) {
+        if (l.toLowerCase().includes(key.toLowerCase().replace('/a',''))) return emocionColors[key];
+      }
+      return '#007BFF';
+    });
+  }
+
+  const ctx = document.getElementById('emocionesChart').getContext('2d');
+  chartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: colors,
+        borderColor: '#fff',
+        borderWidth: 3,
+        hoverOffset: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { family: 'DM Sans', size: 13 },
+            padding: 16,
+            usePointStyle: true,
+            pointStyleWidth: 10
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` ${ctx.label}`
+          }
+        }
+      }
+    }
+  });
+
+  // Leyenda de colores
+  const leyenda = document.getElementById('emociones-leyenda');
+  leyenda.innerHTML = labels.map((l, i) => `
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;color:#444;background:#f4f8ff;padding:4px 10px;border-radius:20px;border:1px solid #d0e4f7;">
+      <span style="width:10px;height:10px;border-radius:50%;background:${colors[i]};display:inline-block;"></span>${l}
+    </span>
+  `).join('');
+}
+
+// ---- MEJORAS ----
+function buildMejoras(presion, imagen, horas, motivos, ayuda) {
+  const steps = [];
+
+  if (horas >= 4) {
+    steps.push({ title: 'Reduce tu tiempo en redes sociales', desc: 'Usa la función de "tiempo de uso" en iOS o Android. Empieza reduciendo 30 minutos al día y sustitúyelos por una actividad física o creativa.' });
+  }
+  if (presion >= 3) {
+    steps.push({ title: 'Practica la asertividad', desc: 'Inscríbete a talleres de comunicación asertiva (muchos son gratuitos en línea). Aprende frases clave para rechazar presión sin generar conflictos.' });
+  }
+  if (imagen <= 3) {
+    steps.push({ title: 'Trabaja tu autoconcepto', desc: 'Escribe 3 cosas que valoras de ti mismo/a cada semana. Busca mentores, personas que te inspiren por sus valores, no por su popularidad en redes.' });
+  }
+  if (motivos.includes('curiosidad') || motivos.includes('diversion')) {
+    steps.push({ title: 'Canaliza tu curiosidad sanamente', desc: 'Únete a comunidades de intereses: ciencia, arte, deportes. Muchas plataformas como YouTube, Khan Academy o Coursera tienen contenido estimulante y seguro.' });
+  }
+  if (!ayuda || ayuda.includes('vergüenza') || ayuda.includes('solo')) {
+    steps.push({ title: 'Construye tu red de apoyo', desc: 'Identifica una persona de confianza (familiar, maestro, amigo mayor). Un solo vínculo de apoyo puede ser transformador en momentos de presión.' });
+  }
+
+  steps.push({ title: 'Infórmate sobre retos virales peligrosos', desc: 'Conocer los riesgos específicos (ahogamiento, quemaduras, golpes) te hace más resistente a la presión. Consulta sitios como ThinkChallenge o UNICEF para jóvenes.' });
+  steps.push({ title: 'Desarrolla un plan de acción personal', desc: 'Define qué harás la próxima vez que alguien te invite a un reto peligroso: qué dirás, a quién llamarás, cómo te alejarás de la situación.' });
+
+  return steps.slice(0, 5);
+}
+
+// ---- CLÍNICAS ----
+function buildClinicas(emociones, motivos, presion, lugar) {
+  const clinicas = [];
+  const lugarLower = lugar.toLowerCase();
+  const needsMentalHealth = emociones.some(e => e.match(/Ansios|Triste|Solo|Confundid|Agotad/));
+  const needsPressure = motivos.includes('presion') || presion >= 4;
+  const isMx = lugarLower.includes('méxico') || lugarLower.includes('mexico') || lugarLower.includes('mx') || lugarLower.includes('cdmx') || lugarLower.includes('guadalajara') || lugarLower.includes('monterrey');
+
+  // Always include SAPTEL (Mexico universal)
+  clinicas.push({
+    nombre: 'SAPTEL – Línea de Crisis México',
+    desc: 'Servicio de Atención Psicológica por Teléfono disponible las 24 horas, los 365 días del año. Completamente gratuito y confidencial.',
+    url: 'https://www.saptel.org.mx',
+    tel: '(55) 5259-8121',
+    icono: 'bi bi-telephone-fill'
+  });
+
+  if (needsMentalHealth) {
+    clinicas.push({
+      nombre: 'IMSS – Salud Mental (México)',
+      desc: 'El Instituto Mexicano del Seguro Social ofrece consultas de psicología y psiquiatría en sus unidades de medicina familiar para derechohabientes.',
+      url: 'https://www.imss.gob.mx/salud/enfermedades/salud-mental',
+      tel: '800-623-2323',
+      icono: 'bi bi-hospital-fill'
+    });
+    clinicas.push({
+      nombre: 'CONASAMA – Consejo Nacional de Salud Mental',
+      desc: 'Organismo que coordina los servicios de salud mental en México. Directorio de centros de atención en todo el país.',
+      url: 'https://www.gob.mx/salud/conasama',
+      icono: 'bi bi-heart-pulse-fill'
+    });
+  }
+
+  if (needsPressure || motivos.includes('autoestima')) {
+    clinicas.push({
+      nombre: 'UNICEF México – Bienestar Digital para Jóvenes',
+      desc: 'Recursos especializados en presión social, uso responsable de redes y bienestar emocional para adolescentes y jóvenes.',
+      url: 'https://www.unicef.org/mexico/adolescentes',
+      icono: 'bi bi-people-fill'
+    });
+  }
+
+  clinicas.push({
+    nombre: 'Instituto Nacional de Psiquiatría (México)',
+    desc: 'Institución líder en investigación y atención de salud mental. Ofrece servicios de consulta externa y programas para jóvenes.',
+    url: 'https://inprf.gob.mx',
+    tel: '(55) 4160-5050',
+    icono: 'bi bi-building-fill-check'
+  });
+
+  clinicas.push({
+    nombre: 'Te Protejo – Red de Apoyo Digital',
+    desc: 'Plataforma donde puedes reportar contenido peligroso en internet y obtener orientación sobre riesgos digitales para niños y jóvenes.',
+    url: 'https://www.teprotejo.org',
+    icono: 'bi bi-shield-fill-check'
+  });
+
+  clinicas.push({
+    nombre: 'Crisis Text Line (Global – en español)',
+    desc: 'Servicio de apoyo en crisis vía texto. Puedes chatear con un consejero entrenado de forma gratuita y confidencial.',
+    url: 'https://www.crisistextline.org',
+    icono: 'bi bi-chat-heart-fill'
+  });
+
+  return clinicas;
+}
+
+// ---- RESET ----
+function resetTest() {
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('form-section').style.display = 'block';
+  goToStep(1);
+
+  // Reset all inputs
+  document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.check-item').forEach(b => { b.classList.remove('checked'); b.querySelector('input').checked = false; });
+  document.getElementById('q-edad').value = '';
+  document.getElementById('q-genero').value = '';
+  document.getElementById('q-lugar').value = '';
+  document.getElementById('q-preocupa').value = '';
+  document.getElementById('q-cambiar').value = '';
+  ['q-imagen','q-presion','q-horas'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = 3;
+    updateRange(el, 'lbl-' + id.replace('q-',''));
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+  <script src="js/chatbot.js"></script>
+
+  <div id="chat-button" class="chat-button">
+    <i class="fa fa-robot" aria-hidden="true"></i>
+  </div>
+
+  <!-- VENTANA CHATBOT: Prevención de Retos Virales -->
+<div id="chat-container" class="chat-container">
+  <div class="chat-header">
+    <span class="chat-logo">
+      <img src="images/bot-conversacional.png" alt="Logo del Chatbot">
+    </span>
+    <h3 class="chat-title">ThinkChallenge</h3>
+    <div class="chat-controls">
+      <span id="expand-chat" class="chat-control-btn">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+      </span>
+      <span id="close-chat" class="chat-control-btn">&times;</span>
+    </div>
+  </div>
+
+  <div class="chat-body">
+    <div class="welcome-message">
+      <p>👋 ¡Hola! Soy <strong>ThinkChallenge</strong>, tu guía para mantenerte seguro en internet.</p>
+      <p>¿Quieres saber cómo identificar o evitar retos virales peligrosos?</p>
+    </div>
+
+    <div class="chat-options">
+      <button class="chat-option-button">⚠️ Reconocer riesgos</button>
+      <button class="chat-option-button">💡 Qué hacer si te presionan</button>
+      <button class="chat-option-button">❤️ Consejos de autocuidado</button>
+    </div>
+
+    <div id="messages-container" class="messages-container">
+      <!-- Aquí aparecerán los mensajes -->
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" id="user-input" placeholder="Escribe tu duda o cuenta tu experiencia...">
+    <button id="send-button">
+      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+</body>
+</html>

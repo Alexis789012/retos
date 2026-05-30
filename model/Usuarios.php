@@ -2,6 +2,8 @@
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="../Css/style.css">
+<link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <?php
 class Usuarios
@@ -17,7 +19,7 @@ class Usuarios
 
     public function conectarBd()
     {
-        $con = mysqli_connect("localhost", "root", "", "healthbot") or die("Problemas con la conexion a la base de datos");
+        $con = mysqli_connect("localhost", "root", "", "thinktwice") or die("Problemas con la conexion a la base de datos");
         return $con;
     }
 
@@ -48,7 +50,7 @@ class Usuarios
 
     public function registrarUsuario()
     {
-        $registrar = mysqli_query($this->conectarBd(), "SELECT * FROM usuarios WHERE correousuario = '$this->correousuario'") or die(mysqli_error($this->conectarBd()));
+        $registrar = mysqli_query($this->conectarBd(), "SELECT * FROM usuarios WHERE correo = '$this->correousuario'") or die(mysqli_error($this->conectarBd()));
         if ($reg = mysqli_fetch_array($registrar)) {
             echo '<script>
                 Swal.fire({
@@ -65,18 +67,14 @@ class Usuarios
 
             $contrasenaCifrada = $this->encriptarAES($this->contrasena);
 
-            $usuarios = mysqli_query($this->conectarBd(), "INSERT INTO usuarios(nombre, apellidos, telefono, edad, genero, correousuario, contrasena) 
+            $usuarios = mysqli_query($this->conectarBd(), "INSERT INTO usuarios(nombre, apellidos, telefono, edad, genero, correo, contrasena) 
             VALUES ('$this->nombre', '$this->apellidos', '$this->telefono', '$this->edad', '$this->genero', '$this->correousuario', '$contrasenaCifrada')")
                 or die("Problemas al insertar" . mysqli_error($this->conectarBd()));
             echo '<script>
-                Swal.fire({
-                icon: "success",
-                title: "Registro exitoso, bienvenido, Inicie sesión para continuar.",
-                confirmButtonText: "Aceptar"
-                }).then(function(){
-                window.location.href="../index.html";
-                });
-            </script>';
+  alert("Registro exitoso, bienvenido. Inicie sesión para continuar.");
+  window.location.href = "../index.html";
+</script>
+';
         }
     }
 
@@ -86,7 +84,7 @@ class Usuarios
         session_start();
 
 
-        $consulta = mysqli_query($this->conectarBd(), "SELECT * FROM usuarios WHERE correousuario = '$correousuario'")
+        $consulta = mysqli_query($this->conectarBd(), "SELECT * FROM usuarios WHERE correo = '$correousuario'")
             or die(mysqli_error($this->conectarBd()));
 
         if ($reg = mysqli_fetch_array($consulta)) {
@@ -102,12 +100,12 @@ class Usuarios
                 $_SESSION['telefono'] = $reg['telefono'];
                 $_SESSION['edad'] = $reg['edad'];
                 $_SESSION['genero'] = $reg['genero'];
-                $_SESSION['correousuario'] = $reg['correousuario'];
-                $_SESSION['nomusuario'] = $reg['nombre'] . ' ' . $reg['apellidos'];
+                $_SESSION['correo'] = $reg['correo'];
+                $_SESSION['nombre'] = $reg['nombre'] . ' ' . $reg['apellidos'];
                 $_SESSION['contrasena'] = $contrasenaReal;
 
                 echo '<script type="text/javascript">
-                    window.location.href="../perfiluser.php";
+                    window.location.href="../index.html";
                 </script>';
             } else {
                 echo '<script type="text/javascript">
@@ -175,7 +173,7 @@ class Usuarios
                 title: "Datos actualizados correctamente",
                 confirmButtonText: "Aceptar"
                 }).then(function(){
-                window.location.href="../perfiluser.php";
+                window.location.href="../index.html";
                 });
             </script>';
         } else {
@@ -191,17 +189,7 @@ class Usuarios
     }
 
 
-    public function obtenerDatosSalud($nombre)
-    {
-        $conexion = $this->conectarBd();
-        $query = "SELECT estatura, peso, imc, fecha 
-              FROM planes 
-              WHERE usuario = '$nombre' 
-              ORDER BY fecha DESC 
-              LIMIT 1";
-        $resultado = mysqli_query($conexion, $query);
-        return mysqli_fetch_array($resultado);
-    }
+    
 
     public function listaUsuarios()
     {
@@ -234,5 +222,3 @@ class Usuarios
 }
 
 ?>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

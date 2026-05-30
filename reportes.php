@@ -71,5 +71,52 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/reportes.js"></script>
 
+
+  <script src="js/chatbot.js"></script>
+
+  <div id="chat-button" class="chat-button">
+    <i class="fa fa-robot" aria-hidden="true"></i>
+  </div>
+
+  <!-- VENTANA CHATBOT: Prevención de Retos Virales -->
+<div id="chat-container" class="chat-container">
+  <div class="chat-header">
+    <span class="chat-logo">
+      <img src="images/bot-conversacional.png" alt="Logo del Chatbot">
+    </span>
+    <h3 class="chat-title">ThinkChallenge</h3>
+    <div class="chat-controls">
+      <span id="expand-chat" class="chat-control-btn">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+      </span>
+      <span id="close-chat" class="chat-control-btn">&times;</span>
+    </div>
+  </div>
+
+  <div class="chat-body">
+    <div class="welcome-message">
+      <p>👋 ¡Hola! Soy <strong>ThinkChallenge</strong>, tu guía para mantenerte seguro en internet.</p>
+      <p>¿Quieres saber cómo identificar o evitar retos virales peligrosos?</p>
+    </div>
+
+    <div class="chat-options">
+      <button class="chat-option-button">⚠️ Reconocer riesgos</button>
+      <button class="chat-option-button">💡 Qué hacer si te presionan</button>
+      <button class="chat-option-button">❤️ Consejos de autocuidado</button>
+    </div>
+
+    <div id="messages-container" class="messages-container">
+      <!-- Aquí aparecerán los mensajes -->
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" id="user-input" placeholder="Escribe tu duda o cuenta tu experiencia...">
+    <button id="send-button">
+      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
 </body>
 </html>

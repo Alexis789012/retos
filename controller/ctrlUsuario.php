@@ -56,7 +56,7 @@ switch ($_REQUEST["opcion"]) {
         break;
 
     case '7':
-        $correousuario = $_REQUEST['correousuario'];
+        $correousuario = $_REQUEST['correo'];
         $contrasena = $_REQUEST['contrasena'];
         $usu->iniciarSesion($correousuario, $contrasena);
         break;

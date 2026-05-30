@@ -237,41 +237,50 @@ a:focus {
 }
 
 /* Estilos de chat */
+/* === BOTÓN FLOTANTE DEL CHAT === */
 .chat-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 60px;
     height: 60px;
-    background-color: rgb(251, 17, 17);
+    background: linear-gradient(135deg, #007aff, #00c6ff);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.4);
     cursor: pointer;
     z-index: 1000;
+    transition: all 0.3s ease;
 }
 
+.chat-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 122, 255, 0.5);
+}
+
+/* === CONTENEDOR DEL CHAT === */
 .chat-container {
     position: fixed;
     bottom: 90px;
     right: 20px;
     width: 380px;
-    height: 420px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    height: 430px;
+    background-color: #f9fbff;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
     display: none;
     flex-direction: column;
     overflow: hidden;
     z-index: 1000;
 }
 
+/* === CABECERA === */
 .chat-header {
-    background-color: rgb(251, 17, 17);
+    background: linear-gradient(90deg, #007aff, #00c6ff);
     color: white;
     padding: 15px;
     display: flex;
@@ -281,35 +290,51 @@ a:focus {
 
 .chat-header h3 {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1.3em;
+    font-weight: 600;
 }
 
 .chat-logo img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.close-chat {
-    font-size: 1.5em;
-    cursor: pointer;
+.chat-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
+.chat-control-btn {
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.chat-control-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* === CUERPO DEL CHAT === */
 .chat-body {
     flex-grow: 1;
     padding: 15px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    background: #f0f6ff;
 }
 
 .welcome-message {
-    background-color: #f1f1f1;
+    background-color: #e8f2ff;
     padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    font-size: 0.9em;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    color: #1c1c1e;
+    border-left: 4px solid #007aff;
 }
 
 .chat-options {
@@ -320,17 +345,64 @@ a:focus {
 }
 
 .chat-option-button {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    background-color: white;
+    padding: 8px 14px;
+    border: 1px solid #007aff;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #007aff;
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
+.chat-option-button:hover {
+    background-color: #007aff;
+    color: white;
+}
+
+/* === ÁREA DE MENSAJES === */
+#messages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    height: 340px;
+}
+
+/* === MENSAJES === */
+.message {
+    max-width: 70%;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 0.95em;
+    line-height: 1.4;
+    word-wrap: break-word;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Bot */
+.message.bot {
+    background-color: #e8f2ff;
+    color: #1c1c1e;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+
+/* Usuario */
+.message.user {
+    background-color: #007aff;
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
+/* === ÁREA DE ENTRADA === */
 .chat-input-area {
     display: flex;
     padding: 10px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #d1d1d1;
+    background-color: #fff;
 }
 
 .chat-input-area input {
@@ -339,10 +411,16 @@ a:focus {
     border: 1px solid #ccc;
     border-radius: 20px;
     margin-right: 10px;
+    outline: none;
+    font-size: 0.95em;
+}
+
+.chat-input-area input:focus {
+    border-color: #007aff;
 }
 
 .chat-input-area button {
-    background-color: #f1f1f1;
+    background-color: #007aff;
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -351,66 +429,16 @@ a:focus {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    color: white;
     font-size: 1.2em;
+    transition: background 0.3s ease;
 }
 
-/* Estilo general de los mensajes */
-.message {
-  max-width: 70%;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 15px;
-  font-size: 25px; /* Cambiado a 25px para mayor legibilidad */
-  line-height: 1.4;
-    word-wrap: break-word; /* Asegura que las palabras largas se dividan */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil para mejorar la visibilidad */
-}
-/* Mensajes del bot */
-.message.bot {
-    background-color: #f1f1f1;
-    color: #222;
-    font-style: italic;
-    font-weight: 500;
-    align-self: flex-start;
-    text-align: left;
-    border-bottom-left-radius: 0;
+.chat-input-area button:hover {
+    background-color: #005ecb;
 }
 
-/* Mensajes del usuario */
-.message.user {
-    background-color: var(--primary-color);
-    color: #fff;
-    align-self: flex-end;
-    text-align: right;
-    border-bottom-right-radius: 0;
-}
-
-#messages-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-    height: 350px;
-}
-/* Nuevo CSS para la funcionalidad de expandir/minimizar el chatbot */
-
-.chat-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.chat-control-btn {
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.chat-control-btn:hover {
-    color: #f1f1f1;
-}
-
-/* Estilos para el modo de pantalla completa */
+/* === MODO EXPANDIDO === */
 .chat-container.expanded {
     position: fixed;
     top: 0;
@@ -419,42 +447,25 @@ a:focus {
     height: 100%;
     border-radius: 0;
     box-shadow: none;
-    z-index: 1001; /* Asegura que esté por encima de todo lo demás */
-    display: flex; /* Asegura que la distribución de los elementos sea correcta */
+    z-index: 1001;
+    display: flex;
 }
 
 .chat-container.expanded .chat-header,
 .chat-container.expanded .chat-body,
 .chat-container.expanded .chat-input-area {
-    width: 100%; /* El contenido se expande para llenar la pantalla */
+    width: 100%;
 }
 
 .chat-container.expanded .messages-container {
-    height: calc(100vh - 200px); /* Ajusta la altura del área de mensajes */
+    height: calc(100vh - 200px);
     max-height: none;
 }
 
 .chat-container.expanded .fa-expand:before {
-    content: "\f066"; /* Cambia el icono de "expandir" a "minimizar" */
+    content: "\f066"; /* cambia el icono a minimizar */
 }
 
-/* Estilos para los controles del chat */
-.chat-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espacio entre los botones de control */
-}
-
-.chat-control-btn {
-    font-size: 1.2em;
-    cursor: pointer;
-    color: var(--white-color); /* Color blanco para los íconos en el header rojo */
-    transition: color 0.3s ease;
-}
-
-.chat-control-btn:hover {
-    color: rgba(255, 255, 255, 0.8);
-}
 
 /* ------------------------------------------- */
 /* ESTILOS DE PANTALLA COMPLETA (.expanded) */
