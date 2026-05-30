@@ -1,0 +1,174 @@
+/* =========================================
+   Estilo Juvenil y Moderno - style-juvenil.css
+   Adaptado al sitio con clases existentes
+   ========================================= */
+
+:root {
+  --primary-color: #3B82F6;   /* Azul eléctrico */
+  --secondary-color: #8B5CF6; /* Morado brillante */
+  --accent-color: #EC4899;    /* Rosa neón */
+  --highlight-color: #22D3EE; /* Cian suave */
+  --light-bg-color: #F9FAFB;  /* Fondo general */
+  --dark-color: #1F2937;      /* Texto */
+  --card-bg: #FFFFFF;         /* Fondo de tarjetas */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* === Tipografía global === */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--light-bg-color);
+  color: var(--dark-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Encabezado === */
+header, .navbar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.navbar-brand, .nav-link {
+  color: white !important;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--highlight-color) !important;
+}
+
+/* === Secciones === */
+.section {
+  padding: 80px 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+
+/* === Hero o Banner principal === */
+.hero {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  text-align: center;
+  padding: 120px 20px;
+  border-radius: 0 0 50px 50px;
+  box-shadow: 0 10px 25px var(--shadow-color);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #E0E7FF;
+}
+
+/* === Botones personalizados === */
+.custom-btn, .btn-primary {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+}
+
+.custom-btn:hover, .btn-primary:hover {
+  background: var(--secondary-color);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+/* === Tarjetas y bloques === */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px var(--shadow-color);
+  transition: 0.3s ease;
+  padding: 30px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* === Enlaces === */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: var(--highlight-color);
+}
+
+/* === Pie de página === */
+footer {
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 60px;
+  box-shadow: 0 -4px 12px var(--shadow-color);
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* === Formularios === */
+input, textarea, select {
+  border: 2px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 10px 14px;
+  width: 100%;
+  transition: 0.3s;
+  font-family: 'Poppins', sans-serif;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.3);
+  outline: none;
+}
+
+/* === Animaciones sutiles === */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Responsivo === */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .section {
+    padding: 60px 15px;
+  }
+
+  .custom-btn {
+    padding: 10px 20px;
+  }
+}

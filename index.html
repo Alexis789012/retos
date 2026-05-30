@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>ThinkChallenge</title>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Login -->
+  <script src="https://kit.fontawesome.com/274421acc6.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+
+  <!-- Fin Login -->
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/aos.css">
+
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="css/tooplate-gymso-style.css">
+</head>
+
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+  <!-- MENU BAR -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+
+      <!-- Logo con icono -->
+      <a class="navbar-brand" href="index.html">
+        <span class="site-name">ThinkChallenge</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-lg-auto">
+          <li class="nav-item">
+            <a href="#home" class="nav-link smoothScroll">Inicio</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#about" class="nav-link smoothScroll">Bienvenida</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="foro.html" class="nav-link smoothScroll">Foro</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="test-retos.html" class="nav-link smoothScroll">Test</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#class" class="nav-link smoothScroll">Retos seguros</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#schedule" class="nav-link smoothScroll">Aprendizaje</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#contact" class="nav-link smoothScroll">Apoyo</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link smoothScroll" data-toggle="modal" data-target="#IniciarSesion">Login</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero d-flex flex-column justify-content-center align-items-center" id="home">
+    <div class="bg-overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto col-12">
+          <div class="hero-text mt-5 text-center">
+            <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">“Sé viral por tus ideas, no por el peligro.”</h1>
+            <a href="#about" class="btn custom-btn bordered mt-3" data-aos="fade-up" data-aos-delay="700">Comenzar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="feature py-5" id="feature" style="background: linear-gradient(135deg, #0056b3, #007BFF); color:#fff;">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <!-- Texto -->
+        <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+          <h2 class="fw-bold mb-3" style="font-size:2.5rem;">Bienvenido a ThinkChallenge</h2>
+          <p class="lead mb-4" style="color:#dceefb; opacity:0.95;">
+            Tu espacio seguro donde promovemos hábitos positivos y te ayudamos a decirle NO a los retos virales
+            peligrosos.
+          </p>
+          <a href="#info" class="btn btn-light fw-bold px-4 py-2" style="border-radius:25px;">Descubre más</a>
+        </div>
+
+        <!-- Imagen -->
+        <div class="col-lg-6 text-center" data-aos="fade-left">
+          <img src="images/Salud Mental.jpg" alt="Bienestar"
+            style="width:100%; max-width:400px; border-radius:20px; box-shadow:0 0 25px rgba(255,255,255,0.3);">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ABOUT -->
+  <section class="about section" id="about"
+    style="background-color: #ffffff; color: #000000; text-align: center; padding: 50px 20px;">
+    <div class="container">
+      <div class="row">
+        <div class="mt-lg-5 mb-lg-0 mb-4 col-lg-8 col-md-10 mx-auto col-12">
+          <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">¡Hola! Te saluda ThinkChallenge.</h2>
+          <p data-aos="fade-up" data-aos-delay="400">
+            El sitio que te ayuda a evitar retos virales peligrosos.
+          </p>
+          <p>
+            En un mundo donde los retos virales se vuelven tendencia en segundos, queremos recordarte que no todo lo que
+            se vuelve popular es seguro.
+            Nuestro objetivo es ayudarte a identificar y evitar los desafíos peligrosos que circulan en redes sociales,
+            ofreciéndote información, consejos y recursos para navegar el mundo digital de manera segura.
+            Aquí aprenderás a pensar antes de actuar, a cuidar tu bienestar y el de quienes te rodean.
+            Porque tu seguridad vale más que cualquier reto.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Beneficios - Tarjetas -->
+  <section class="class section py-5" id="class" style="background: linear-gradient(135deg, #0056b3, #007BFF); color:#fff;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 style="color:#ffeb3b;">Ofrecemos</h6>
+      <h2 class="fw-bold">Apoyo emocional</h2>
+    </div>
+
+    <div class="row gy-4">
+
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex align-items-center bg-white text-dark p-3 rounded shadow" style="border-left:8px solid #ffeb3b;">
+          <img src="images/class/consejos.jpg" alt="Consejos" class="rounded" style="width:80px; height:80px; object-fit:cover; margin-right:15px;">
+          <div>
+            <h5 class="fw-bold">Sugerencias</h5>
+            <p style="font-size:0.9rem;">"Mira esta peli seguramente te encantara."</p>
+            <a href="https://www.youtube.com/watch?v=IgR1fpefy7o" target="_blank">Ver video</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex align-items-center bg-white text-dark p-3 rounded shadow" style="border-left:8px solid #ffeb3b;">
+          <img src="images/class/comid.png" alt="Salud" class="rounded" style="width:80px; height:80px; object-fit:cover; margin-right:15px;">
+          <div>
+            <h5 class="fw-bold">Influencia Positiva</h5>
+            <p style="font-size:0.9rem;">Checate estos influencers probablemente te guste su forma de pensar.</p>
+            <a href="https://www.youtube.com/watch?v=_NJuOdbgq9w" target="_blank">Ver video</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex align-items-center bg-white text-dark p-3 rounded shadow" style="border-left:8px solid #ffeb3b;">
+          <img src="images/class/ejercicio.png" alt="Ejercicio" class="rounded" style="width:80px; height:80px; object-fit:cover; margin-right:15px;">
+          <div>
+            <h5 class="fw-bold">Mejora tu Apariencia</h5>
+            <p style="font-size:0.9rem;">Checa estos tips sobre cuidado personal.</p>
+            <a href="https://www.youtube.com/watch?v=DP-EXWdZCI8" target="_blank">Ver video</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- Sección de Recursos Interactivos -->
+<section id="recursos" class="py-5" style="background-color: #ffffff; color: #000000;">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold" data-aos="fade-up">Recursos Interactivos</h2>
+    <p class="text-center mb-5" style="max-width:700px; margin:auto; opacity:0.9;" data-aos="fade-up" data-aos-delay="150">
+      Explora materiales diseñados para ayudarte a reconocer y evitar los retos virales peligrosos. Aprende de forma práctica y divertida.
+    </p>
+
+    <div class="row g-4 text-center">
+
+      <!-- Mini Guías -->
+      <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+        <div class="card border-0 shadow h-100" style="border-radius:15px;">
+          <div class="card-body">
+            <i class="bi bi-journal-text display-4 text-primary mb-3"></i>
+            <h5 class="fw-bold text-dark">Mini Guías</h5>
+            <p class="text-muted">Consejos rápidos para identificar y actuar ante tendencias en redes sociales.</p>
+            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Videos Cortos -->
+      <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card border-0 shadow h-100" style="border-radius:15px;">
+          <div class="card-body">
+            <i class="bi bi-play-circle-fill display-4 text-primary mb-3"></i>
+            <h5 class="fw-bold text-dark">Videos Cortos</h5>
+            <p class="text-muted">Clips informativos para reflexionar sobre el impacto de los retos virales.</p>
+            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Ver videos</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quizzes Interactivos -->
+      <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card border-0 shadow h-100" style="border-radius:15px;">
+          <div class="card-body">
+            <i class="bi bi-question-circle-fill display-4 text-primary mb-3"></i>
+            <h5 class="fw-bold text-dark">Quizzes Interactivos</h5>
+            <p class="text-muted">Pon a prueba tus conocimientos sobre seguridad y autoestima digital.</p>
+            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Comenzar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glosario -->
+      <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+        <div class="card border-0 shadow h-100" style="border-radius:15px;">
+          <div class="card-body">
+            <i class="bi bi-book-fill display-4 text-primary mb-3"></i>
+            <h5 class="fw-bold text-dark">Glosario</h5>
+            <p class="text-muted">Aprende los términos más usados sobre redes sociales, salud mental y retos virales.</p>
+            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Explorar</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+  <section id="contact" style="background-color:#E3F2FD; padding:80px 0;">
+  <div class="container">
+    <div class="row g-4 align-items-center">
+      <!-- Columna izquierda -->
+      <div class="col-md-6 text-center text-md-start">
+        <h2 class="fw-bold mb-3 text-primary">Contáctanos</h2>
+        <p class="mb-4">Tu bienestar es importante para nosotros. Escríbenos y te guiaremos con un experto</p>
+        <img src="images/Eres Hermosa.jpg" alt="Contacto" class="img-fluid rounded shadow-sm" style="width: 300px;">
+      </div>
+
+      <!-- Columna derecha -->
+      <div class="col-md-6">
+        <form class="bg-white p-4 rounded shadow-lg">
+          <h4 class="text-center mb-4 text-primary">Déjanos tu mensaje</h4>
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" placeholder="Tu nombre">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" placeholder="Tu correo">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mensaje</label>
+            <textarea class="form-control" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Enviar mensaje</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+
+
+
+  <!-- Modal Inicio de sesión-->
+  <!-- Modal Login -->
+
+<div class="modal" id="IniciarSesion" tabindex="-1" role="dialog" aria-labelledby="IniciarSesionLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
+  <!-- Encabezado -->
+  <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+    <h2 class="modal-title w-100 text-center" id="IniciarSesionLabel" style="font-weight:bold;">Iniciar Sesión</h2>
+    <button type="button" class="close text-white position-absolute" data-dismiss="modal" aria-label="Close" style="right:15px; top:15px; font-size:1.5rem;">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <!-- Cuerpo -->
+  <div class="modal-body px-4 py-5">
+    <form action="controller/ctrlUsuario.php" method="post">
+      
+      <!-- Correo -->
+      <div class="form-group mb-4">
+        <label for="correousuario" class="font-weight-semibold text-secondary">Correo Electrónico</label>
+        <input type="email" class="form-control" name="correo" id="correousuario"
+          placeholder="Ingresa tu correo" required style="border-radius:12px; box-shadow:0 0 5px rgba(0,0,0,0.1); border:none;">
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group mb-4">
+        <label for="login-contrasena" class="font-weight-semibold text-secondary">Contraseña</label>
+        <div class="input-group" style="border-radius:12px; overflow:hidden; box-shadow:0 0 5px rgba(0,0,0,0.1);">
+          <input type="password" class="form-control border-0" id="login-contrasena" name="contrasena"
+            placeholder="Ingresa tu contraseña"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$"
+            title="Debe tener al menos una letra minúscula, una mayúscula, un número, mínimo 8 caracteres y sin espacios"
+            required>
+          <div class="input-group-append">
+            <span class="input-group-text bg-white border-0">
+              <i id="toggleLoginPassword" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" name="opcion" value="7" />
+
+      <!-- Botón -->
+      <div class="text-center">
+        <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100" 
+          style="background-color:#0056b3; transition:0.3s;" 
+          onmouseover="this.style.backgroundColor='#009C9C'" 
+          onmouseout="this.style.backgroundColor='#007B7F'">
+          Iniciar Sesión
+        </button>
+      </div>
+
+      <!-- Registro -->
+      <p class="text-center mt-4 text-secondary">
+        ¿No tienes cuenta?
+        <a href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal" class="font-weight-semibold" style="color:#0056b3;">
+          Regístrate
+        </a>
+      </p>
+
+    </form>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+
+  <!-- Fin Modal y Formulario -->
+
+  <!-- Modal de Registro -->
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
+
+  <!-- Encabezado -->
+  <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+    <h2 class="modal-title w-100 text-center font-weight-bold" id="registerModalLabel">Formulario de Registro</h2>
+    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity:1; font-size:1.8rem;">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <!-- Cuerpo -->
+  <div class="modal-body px-4 py-5">
+    <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
+
+      <!-- Nombre y Apellidos -->
+      <div class="form-row">
+        <div class="form-group col-md-6 mb-3">
+          <label for="nombre" class="font-weight-semibold text-secondary">Nombre</label>
+          <input type="text" class="form-control border-0 shadow-sm" name="nombre" id="nombre" required style="border-radius:12px;">
+        </div>
+        <div class="form-group col-md-6 mb-3">
+          <label for="apellidos" class="font-weight-semibold text-secondary">Apellidos</label>
+          <input type="text" class="form-control border-0 shadow-sm" name="apellidos" id="apellidos" required style="border-radius:12px;">
+        </div>
+      </div>
+
+      <!-- Teléfono y Edad -->
+      <div class="form-row">
+        <div class="form-group col-md-6 mb-3">
+          <label for="telefono" class="font-weight-semibold text-secondary">Teléfono</label>
+          <input type="tel" class="form-control border-0 shadow-sm" name="telefono" id="telefono" required style="border-radius:12px;">
+        </div>
+        <div class="form-group col-md-6 mb-3">
+          <label for="edad" class="font-weight-semibold text-secondary">Edad</label>
+          <input type="number" class="form-control border-0 shadow-sm" name="edad" id="edad" required style="border-radius:12px;">
+        </div>
+      </div>
+
+      <!-- Género -->
+      <div class="form-group mb-4">
+        <label for="genero" class="font-weight-semibold text-secondary">Género</label>
+        <select class="form-control border-0 shadow-sm" name="genero" id="genero" required style="border-radius:12px;">
+          <option value="" disabled selected>Selecciona tu género</option>
+          <option value="Hombre">Hombre</option>
+          <option value="Mujer">Mujer</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+
+      <!-- Correo -->
+      <div class="form-group mb-4">
+        <label for="correousuario" class="font-weight-semibold text-secondary">Correo Electrónico</label>
+        <input type="email" class="form-control border-0 shadow-sm" name="correousuario" id="correousuario" required style="border-radius:12px;">
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group mb-4">
+        <label for="reg-contrasena" class="font-weight-semibold text-secondary">Contraseña</label>
+        <div class="input-group shadow-sm" style="border-radius:12px; overflow:hidden;">
+          <input type="password" class="form-control border-0" id="reg-contrasena" name="contrasena"
+            placeholder="Crea una contraseña"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$"
+            title="Debe tener al menos una letra minúscula, una mayúscula, un número, mínimo 8 caracteres y sin espacios"
+            required>
+          <div class="input-group-append">
+            <span class="input-group-text bg-white border-0">
+              <i id="toggleRegisterPassword" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- Tooltip -->
+        <div id="passwordTooltip" style="display:none; font-size:14px; margin-top:5px;">
+          <strong>La contraseña debe cumplir:</strong>
+          <ul style="margin:5px 0 0 15px; padding:0;">
+            <li id="lower">Al menos una letra minúscula</li>
+            <li id="upper">Al menos una letra mayúscula</li>
+            <li id="number">Al menos un número</li>
+            <li id="length">Mínimo 8 caracteres</li>
+            <li id="space">Sin espacios</li>
+          </ul>
+        </div>
+      </div>
+
+      <input type="hidden" name="opcion" value="1" />
+
+      <!-- Botón -->
+      <div class="text-center">
+        <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100" 
+          style="background:#0056b3; border:none; transition:background 0.3s;">
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+  </div>
+</div>
+
+
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="ml-auto col-lg-4 col-md-5">
+          <p class="copyright-text">Copyright &copy; 2026 ThinkChallenge
+        </div>
+        <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
+          <ul class="social-icon ml-lg-3">
+            <li><a href="#" class="fa fa-facebook"></a></li>
+            <li><a href="#" class="fa fa-twitter"></a></li>
+            <li><a href="#" class="fa fa-instagram"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/smoothscroll.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/chatbot.js"></script>
+
+  <div id="chat-button" class="chat-button">
+    <i class="fa fa-robot" aria-hidden="true"></i>
+  </div>
+
+  <!-- VENTANA CHATBOT: Prevención de Retos Virales -->
+<div id="chat-container" class="chat-container">
+  <div class="chat-header">
+    <span class="chat-logo">
+      <img src="images/bot-conversacional.png" alt="Logo del Chatbot">
+    </span>
+    <h3 class="chat-title">ThinkChallenge</h3>
+    <div class="chat-controls">
+      <span id="expand-chat" class="chat-control-btn">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+      </span>
+      <span id="close-chat" class="chat-control-btn">&times;</span>
+    </div>
+  </div>
+
+  <div class="chat-body">
+    <div class="welcome-message">
+      <p>👋 ¡Hola! Soy <strong>ThinkChallenge</strong>, tu guía para mantenerte seguro en internet.</p>
+      <p>¿Quieres saber cómo identificar o evitar retos virales peligrosos?</p>
+    </div>
+
+    <div class="chat-options">
+      <button class="chat-option-button">⚠️ Reconocer riesgos</button>
+      <button class="chat-option-button">💡 Qué hacer si te presionan</button>
+      <button class="chat-option-button">❤️ Consejos de autocuidado</button>
+    </div>
+
+    <div id="messages-container" class="messages-container">
+      <!-- Aquí aparecerán los mensajes -->
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" id="user-input" placeholder="Escribe tu duda o cuenta tu experiencia...">
+    <button id="send-button">
+      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+
+  
+</body>
+
+
+<!-- Script Login-->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+  integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleLogin = document.getElementById('toggleLoginPassword');
+    const loginPass = document.getElementById('login-contrasena');
+
+    toggleLogin.addEventListener('click', function () {
+      const type = loginPass.getAttribute('type') === 'password' ? 'text' : 'password';
+      loginPass.setAttribute('type', type);
+      toggleLogin.classList.toggle('fa-eye');
+      toggleLogin.classList.toggle('fa-eye-slash');
+    });
+  });
+
+  //Script de registro 
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleRegister = document.getElementById('toggleRegisterPassword');
+    const registerPass = document.getElementById('reg-contrasena');
+
+    toggleRegister.addEventListener('click', function () {
+      const type = registerPass.getAttribute('type') === 'password' ? 'text' : 'password';
+      registerPass.setAttribute('type', type);
+      toggleRegister.classList.toggle('fa-eye');
+      toggleRegister.classList.toggle('fa-eye-slash');
+    });
+  });
+  // <!-- Font Awesome -->
+
+
+  const passwordInput = document.getElementById('reg-contrasena');
+  const tooltip = document.getElementById('passwordTooltip');
+  // const togglePassword = document.getElementById('toggleRegisterPassword');
+  const form = document.getElementById('registroForm'); // Asegúrate que el <form> tenga este id
+
+
+  // Mostrar reglas al enfocar
+  passwordInput.addEventListener('focus', () => {
+    tooltip.style.display = 'block';
+  });
+
+  // Ocultar reglas al perder foco
+  passwordInput.addEventListener('blur', () => {
+    tooltip.style.display = 'none';
+  });
+
+  // Validación en tiempo real
+  passwordInput.addEventListener('input', () => {
+    const val = passwordInput.value;
+    document.getElementById('lower').style.color = /[a-z]/.test(val) ? 'green' : 'red';
+    document.getElementById('upper').style.color = /[A-Z]/.test(val) ? 'green' : 'red';
+    document.getElementById('number').style.color = /\d/.test(val) ? 'green' : 'red';
+    document.getElementById('length').style.color = val.length >= 8 ? 'green' : 'red';
+    document.getElementById('space').style.color = /\s/.test(val) ? 'red' : 'green';
+  });
+
+  // Validar antes de enviar
+  // form.addEventListener('submit', (event) => {
+  //   const val = passwordInput.value;
+  //   const valid = /[a-z]/.test(val) && /[A-Z]/.test(val) && /\d/.test(val) && val.length >= 8 && !/\s/.test(val);
+
+  //   if (!valid) {
+  //     event.preventDefault();
+  //     alert('⚠️ La contraseña no cumple con los requisitos solicitados.');
+  //   }
+  // });
+
+</script>
+
+
+</html>
