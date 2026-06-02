@@ -14,6 +14,10 @@
     { "src": "style.css", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/model/chatbot_api.php", "dest": "/model/chatbot_api.php" },
+    { "src": "/controller/(.*).php", "dest": "/controller/$1.php" },
+    { "src": "/api/(.*).php", "dest": "/api/$1.php" },
+    { "src": "/(.*).php", "dest": "/$1.php" },
     { "handle": "filesystem" }
   ]
 }
