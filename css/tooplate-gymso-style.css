@@ -620,9 +620,9 @@ a:focus {
    HERO
 -----------------------------------------*/
 .hero {
-    background-image: url('../images/Banner1.jpeg'); /* El ../ sale de la carpeta css e ingresa a images */
+    background-image: url('../images/Banner1.jpeg');
     background-size: cover;
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
     vertical-align: middle;
     min-height: 100vh;

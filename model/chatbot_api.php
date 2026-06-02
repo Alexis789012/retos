@@ -256,10 +256,8 @@ $response = curl_exec($ch);
 if (curl_errno($ch)) {
     $errorStr = curl_error($ch);
     echo json_encode(["response" => "⚠️ Error de red en el servidor cloud: $errorStr"]);
-    curl_close($ch);
     exit;
 }
-curl_close($ch);
 
 $result = json_decode($response, true);
 
