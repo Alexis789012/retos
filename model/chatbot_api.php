@@ -1,10 +1,6 @@
 <?php
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 header('Content-Type: application/json; charset=UTF-8');
 
 $config = include __DIR__ . "/config.php";
@@ -200,7 +196,6 @@ $bloquePsicologos
 //  HISTORIAL DE CONVERSACIÓN
 // ══════════════════════════════════════════════
 
-// Resetear si algún mensaje tiene formato Gemini (con 'parts')
 if (!empty($_SESSION['chat_history'])) {
     foreach ($_SESSION['chat_history'] as $msg) {
         if (isset($msg['parts'])) {

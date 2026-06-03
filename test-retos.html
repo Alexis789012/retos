@@ -587,9 +587,9 @@
         <label>Género</label>
         <select class="form-select" id="q-genero">
           <option value="" disabled selected>Selecciona una opción</option>
-          <option value="hombre">Hombre</option>
-          <option value="mujer">Mujer</option>
-          <option value="nb">No binario / Prefiero no decirlo</option>
+          <option value="Hombre">Hombre</option>
+          <option value="Mujer">Mujer</option>
+          <option value="Nb">No binario / Prefiero no decirlo</option>
         </select>
       </div>
       <div class="mb-4">
@@ -935,7 +935,7 @@ function submitTest() {
   const tagArea = document.getElementById('user-tag-area');
   tagArea.innerHTML = `
     <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4)">📅 ${edad} años</span>
-    <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4)">${genero==='hombre'?'👦':'genero'==='mujer'?'👧':'🧑'} ${genero}</span>
+    <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4)">${genero==='Hombre'?'👦':'genero'==='Mujer'?'👧':'🧑'} ${genero}</span>
     <span class="tag" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4)">📍 ${lugar}</span>
   `;
 

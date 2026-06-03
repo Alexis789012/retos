@@ -150,10 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
     safe = safe.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul style="padding-left:18px;margin:6px 0;">$1</ul>');
 
     // Saltos de línea dobles = párrafo
-    safe = safe.replace(/\n\n+/g, '</p><p style="margin:8px 0 0;">');
+    safe = safe.replace(/\n\n+/g, '</p><p style="margin:8px 0 0; color:inherit;">');
     safe = safe.replace(/\n/g, '<br>');
 
-    return '<p style="margin:0;">' + safe + '</p>';
+    return '<p style="margin:0; color:inherit;">' + safe + '</p>';
   }
 
 });
