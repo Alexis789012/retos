@@ -574,7 +574,23 @@
         <li class="nav-item"><a href="index.html#class" class="nav-link">Retos seguros</a></li>
         <li class="nav-item"><a href="index.html#schedule" class="nav-link">Aprendizaje</a></li>
         <li class="nav-item"><a href="index.html#contact" class="nav-link">Apoyo</a></li>
-        <li class="nav-item"><a href="#" class="nav-link" data-toggle="modal" data-target="#IniciarSesion">Login</a></li>
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="foro-acceso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Acceso
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="foro-acceso">
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#IniciarSesion">
+                <i class="fa fa-sign-in mr-2"></i>Iniciar Sesión
+              </a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#registerModal">
+                <i class="fa fa-user-plus mr-2"></i>Registrarse
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#registroParentalModal">
+                <i class="fa fa-shield mr-2"></i>Control Parental
+              </a>
+            </div>
+          </li>
       </ul>
     </div>
   </div>
@@ -1173,5 +1189,374 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 
+
+  <!-- Modal Iniciar Sesion -->
+<div class="modal" id="IniciarSesion" tabindex="-1" role="dialog" aria-labelledby="IniciarSesionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
+        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+          <h2 class="modal-title w-100 text-center" id="IniciarSesionLabel" style="font-weight:bold;">Iniciar Sesión</h2>
+          <button type="button" class="close text-white position-absolute" data-dismiss="modal" aria-label="Close" style="right:15px; top:15px; font-size:1.5rem;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-4 py-5">
+          <form action="controller/ctrlUsuario.php" method="post">
+            <div class="form-group mb-4">
+              <label for="correousuario" class="font-weight-semibold text-secondary">Correo Electrónico</label>
+              <input type="email" class="form-control" name="correo" id="correousuario"
+                placeholder="Ingresa tu correo" required style="border-radius:12px; box-shadow:0 0 5px rgba(0,0,0,0.1); border:none;">
+            </div>
+            <div class="form-group mb-4">
+              <label for="login-contrasena" class="font-weight-semibold text-secondary">Contraseña</label>
+              <div class="input-group" style="border-radius:12px; overflow:hidden; box-shadow:0 0 5px rgba(0,0,0,0.1);">
+                <input type="password" class="form-control border-0" id="login-contrasena" name="contrasena"
+                  placeholder="Ingresa tu contraseña"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$"
+                  title="Debe tener al menos una letra minúscula, una mayúscula, un número, mínimo 8 caracteres y sin espacios"
+                  required>
+                <div class="input-group-append">
+                  <span class="input-group-text bg-white border-0">
+                    <i id="toggleLoginPassword" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="opcion" value="7" />
+            <div class="text-center">
+              <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100"
+                style="background:#0056b3; border:none; transition:background 0.3s;">
+                Iniciar Sesión
+              </button>
+            </div>
+            <p class="text-center mt-4 text-secondary">
+              ¿No tienes cuenta?
+              <a href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal" class="font-weight-semibold" style="color:#0056b3;">
+                Regístrate
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Registro -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
+        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+          <h2 class="modal-title w-100 text-center font-weight-bold" id="registerModalLabel">Formulario de Registro</h2>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity:1; font-size:1.8rem;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-4 py-5" id="modal-registro-body">
+          <div id="seccion-registro-normal">
+          <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label for="nombre" class="font-weight-semibold text-secondary">Nombre</label>
+                <input type="text" class="form-control border-0 shadow-sm" name="nombre" id="nombre" required style="border-radius:12px;">
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label for="apellidos" class="font-weight-semibold text-secondary">Apellidos</label>
+                <input type="text" class="form-control border-0 shadow-sm" name="apellidos" id="apellidos" required style="border-radius:12px;">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label for="telefono" class="font-weight-semibold text-secondary">Teléfono</label>
+                <input type="tel" class="form-control border-0 shadow-sm" name="telefono" id="telefono" required style="border-radius:12px;">
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label for="edad" class="font-weight-semibold text-secondary">Edad</label>
+                <input type="number" class="form-control border-0 shadow-sm" name="edad" id="edad" required style="border-radius:12px;">
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <label for="genero" class="font-weight-semibold text-secondary">Género</label>
+              <select class="form-control border-0 shadow-sm" name="genero" id="genero" required style="border-radius:12px;">
+                <option value="" disabled selected>Selecciona tu género</option>
+                <option value="Hombre">Hombre</option>
+                <option value="Mujer">Mujer</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <label for="correousuario" class="font-weight-semibold text-secondary">Correo Electrónico</label>
+              <input type="email" class="form-control border-0 shadow-sm" name="correousuario" id="correousuario" required style="border-radius:12px;">
+            </div>
+            <div class="form-group mb-4">
+              <label for="reg-contrasena" class="font-weight-semibold text-secondary">Contraseña</label>
+              <div class="input-group shadow-sm" style="border-radius:12px; overflow:hidden;">
+                <input type="password" class="form-control border-0" id="reg-contrasena" name="contrasena"
+                  placeholder="Crea una contraseña"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$"
+                  title="Debe tener al menos una letra minúscula, una mayúscula, un número, mínimo 8 caracteres y sin espacios"
+                  required>
+                <div class="input-group-append">
+                  <span class="input-group-text bg-white border-0">
+                    <i id="toggleRegisterPassword" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+                  </span>
+                </div>
+              </div>
+              <div id="passwordTooltip" style="display:none; font-size:14px; margin-top:5px;">
+                <strong>La contraseña debe cumplir:</strong>
+                <ul style="margin:5px 0 0 15px; padding:0;">
+                  <li id="lower">Al menos una letra minúscula</li>
+                  <li id="upper">Al menos una letra mayúscula</li>
+                  <li id="number">Al menos un número</li>
+                  <li id="length">Mínimo 8 caracteres</li>
+                  <li id="space">Sin espacios</li>
+                </ul>
+              </div>
+            </div>
+            <input type="hidden" name="opcion" value="1" />
+            <div class="text-center">
+              <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100 mb-3"
+                style="background:#0056b3; border:none; transition:background 0.3s;">
+                Registrarse
+              </button>
+              <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
+                style="background:#e9f0fb; color:#0056b3; border:none; transition:background 0.3s;"
+                data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                ¿Ya tienes cuenta? Iniciar Sesión
+              </button>
+            </div>
+          </form>
+          </div><!-- /seccion-registro-normal -->
+
+          <!-- Botón de Control Parental FUERA del form -->
+          <div class="card border-0 shadow-sm mb-2 mt-2" style="border-radius:14px; background:#f0f6ff;">
+            <div class="card-body px-3 py-3 text-center">
+              <h6 class="font-weight-bold mb-1" style="color:#0056b3;">
+                <i class="fa fa-shield mr-1"></i> Control Parental
+              </h6>
+              <p class="text-secondary mb-3" style="font-size:0.85rem;">
+                ¿Eres papá, mamá o tutor de este usuario? Completa tus datos para activar la supervisión parental.
+              </p>
+              <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
+                style="background:#0056b3; color:white; border:none; transition:background 0.3s;"
+                data-toggle="modal" data-target="#registroParentalModal" data-dismiss="modal">
+                <i class="fa fa-shield mr-1"></i> Soy papá / mamá / tutor
+              </button>
+            </div>
+          </div>
+
+          <!-- Formulario Parental inline -->
+          <div id="seccion-registro-parental" style="display:none;">
+            <div class="alert alert-info py-2 px-3 mb-4" style="border-radius:10px; font-size:0.88rem;">
+              <i class="fa fa-info-circle mr-1"></i>
+              Este registro es exclusivo para adultos responsables. Debes tener <strong>18 &amp;ntilde;os o m&amp;aacute;s</strong>.
+            </div>
+            <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
+              <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Nombre</label>
+                  <input type="text" class="form-control border-0 shadow-sm" name="cp_nombre" required style="border-radius:12px;">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Apellidos</label>
+                  <input type="text" class="form-control border-0 shadow-sm" name="cp_apellidos" required style="border-radius:12px;">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Tel&amp;eacute;fono</label>
+                  <input type="tel" class="form-control border-0 shadow-sm" name="cp_telefono" required style="border-radius:12px;">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Edad (mayor de 18)</label>
+                  <input type="number" class="form-control border-0 shadow-sm" name="cp_edad" id="cp-edad" min="18" max="120" required style="border-radius:12px;" oninvalid="this.setCustomValidity('Debes ser mayor de 18 años')" oninput="this.setCustomValidity('')">
+                  <small id="cp-edad-error" class="text-danger" style="display:none;">Debes ser mayor de 18 anos.</small>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label class="font-weight-semibold text-secondary">G&amp;eacute;nero</label>
+                <select class="form-control border-0 shadow-sm" name="cp_genero" required style="border-radius:12px;">
+                  <option value="" disabled selected>Selecciona tu g&amp;eacute;nero</option>
+                  <option value="Hombre">Hombre</option>
+                  <option value="Mujer">Mujer</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label class="font-weight-semibold text-secondary">Relaci&amp;oacute;n con el usuario</label>
+                <select class="form-control border-0 shadow-sm" name="cp_rol" id="cp-rol-parental" required style="border-radius:12px;">
+                  <option value="" disabled selected>Selecciona tu rol</option>
+                  <option value="Papa">Pap&amp;aacute;</option>
+                  <option value="Mama">Mam&amp;aacute;</option>
+                  <option value="Tutor">Tutor/a</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label class="font-weight-semibold text-secondary">Correo Electr&amp;oacute;nico</label>
+                <input type="email" class="form-control border-0 shadow-sm" name="cp_correo" required style="border-radius:12px;">
+              </div>
+              <div class="form-group mb-4">
+                <label class="font-weight-semibold text-secondary">Contrase&amp;ntilde;a</label>
+                <div class="input-group shadow-sm" style="border-radius:12px; overflow:hidden;">
+                  <input type="password" class="form-control border-0" id="cp-contrasena" name="cp_contrasena" placeholder="Crea una contrasena" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$" title="Debe tener al menos una letra minuscula, una mayuscula, un numero, minimo 8 caracteres y sin espacios" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-white border-0">
+                      <i id="toggleCpPassword" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="opcion" value="8" />
+              <div class="text-center">
+                <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100 mb-3" style="background:#0056b3; border:none;">
+                  Registrar como Responsable
+                </button>
+                <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100 mb-2" style="background:#e9f0fb; color:#0056b3; border:none;" onclick="volverRegistroNormal()">
+                  Volver al registro
+                </button>
+                <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100" style="background:#e9f0fb; color:#0056b3; border:none;" data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                  Ya tengo cuenta - Iniciar Sesi&amp;oacute;n
+                </button>
+              </div>
+            </form>
+          </div><!-- /seccion-registro-parental -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Registro Control Parental -->
+<div class="modal fade" id="registroParentalModal" tabindex="-1" role="dialog" aria-labelledby="registroParentalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
+        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+          <h2 class="modal-title w-100 text-center font-weight-bold" id="registroParentalLabel">
+            <i class="fa fa-shield mr-2"></i>Registro de Control Parental
+          </h2>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity:1; font-size:1.8rem;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-4 py-4">
+          <div class="alert alert-info py-2 px-3 mb-4" style="border-radius:10px; font-size:0.88rem;">
+            <i class="fa fa-info-circle mr-1"></i>
+            Este registro es exclusivo para adultos responsables. Debes tener <strong>18 años o más</strong>.
+          </div>
+          <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Nombre</label>
+                <input type="text" class="form-control border-0 shadow-sm" name="cp_nombre" id="cp-nombre" required style="border-radius:12px;">
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Apellidos</label>
+                <input type="text" class="form-control border-0 shadow-sm" name="cp_apellidos" id="cp-apellidos" required style="border-radius:12px;">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Teléfono</label>
+                <input type="tel" class="form-control border-0 shadow-sm" name="cp_telefono" id="cp-telefono" required style="border-radius:12px;">
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Edad</label>
+                <input type="number" class="form-control border-0 shadow-sm" name="cp_edad" id="cp-edad"
+                  min="18" max="120" required style="border-radius:12px;"
+                  oninvalid="this.setCustomValidity('Debes ser mayor de 18 años')"
+                  oninput="this.setCustomValidity('')">
+                <small id="cp-edad-error" class="text-danger" style="display:none;">Debes ser mayor de 18 años.</small>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label class="font-weight-semibold text-secondary">Género</label>
+              <select class="form-control border-0 shadow-sm" name="cp_genero" required style="border-radius:12px;">
+                <option value="" disabled selected>Selecciona tu género</option>
+                <option value="Hombre">Hombre</option>
+                <option value="Mujer">Mujer</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label class="font-weight-semibold text-secondary">Relación con el usuario</label>
+              <select class="form-control border-0 shadow-sm" name="cp_rol" id="cp-rol-parental" required style="border-radius:12px;">
+                <option value="" disabled selected>Selecciona tu rol</option>
+                <option value="Papa">Papá</option>
+                <option value="Mama">Mamá</option>
+                <option value="Tutor">Tutor/a</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label class="font-weight-semibold text-secondary">Correo Electrónico</label>
+              <input type="email" class="form-control border-0 shadow-sm" name="cp_correo" required style="border-radius:12px;">
+            </div>
+            <div class="form-group mb-4">
+              <label class="font-weight-semibold text-secondary">Contraseña</label>
+              <div class="input-group shadow-sm" style="border-radius:12px; overflow:hidden;">
+                <input type="password" class="form-control border-0" id="cp-contrasena-modal" name="cp_contrasena"
+                  placeholder="Crea una contraseña"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$"
+                  title="Debe tener al menos una letra minúscula, una mayúscula, un número, mínimo 8 caracteres y sin espacios"
+                  required>
+                <div class="input-group-append">
+                  <span class="input-group-text bg-white border-0">
+                    <i id="toggleCpPassword-modal" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="opcion" value="8" />
+            <div class="text-center">
+              <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100 mb-3"
+                style="background:#0056b3; border:none; transition:background 0.3s;">
+                Registrar como Responsable
+              </button>
+              <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
+                style="background:#e9f0fb; color:#0056b3; border:none;"
+                data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                ¿Ya tienes cuenta? Iniciar Sesión
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Toggle contraseña - Login
+      var toggleLogin = document.getElementById('toggleLoginPassword');
+      var loginPass   = document.getElementById('login-contrasena');
+      if (toggleLogin && loginPass) {
+        toggleLogin.addEventListener('click', function () {
+          var type = loginPass.getAttribute('type') === 'password' ? 'text' : 'password';
+          loginPass.setAttribute('type', type);
+          toggleLogin.classList.toggle('fa-eye');
+          toggleLogin.classList.toggle('fa-eye-slash');
+        });
+      }
+      // Toggle contraseña - Registro
+      var toggleReg = document.getElementById('toggleRegisterPassword');
+      var regPass   = document.getElementById('reg-contrasena');
+      if (toggleReg && regPass) {
+        toggleReg.addEventListener('click', function () {
+          var type = regPass.getAttribute('type') === 'password' ? 'text' : 'password';
+          regPass.setAttribute('type', type);
+          toggleReg.classList.toggle('fa-eye');
+          toggleReg.classList.toggle('fa-eye-slash');
+        });
+      }
+      // Toggle contraseña - Control Parental
+      var toggleCp = document.getElementById('toggleCpPassword-modal');
+      var cpPass   = document.getElementById('cp-contrasena-modal');
+      if (toggleCp && cpPass) {
+        toggleCp.addEventListener('click', function () {
+          var type = cpPass.getAttribute('type') === 'password' ? 'text' : 'password';
+          cpPass.setAttribute('type', type);
+          toggleCp.classList.toggle('fa-eye');
+          toggleCp.classList.toggle('fa-eye-slash');
+        });
+      }
+    });
+  </script>
 </body>
 </html>

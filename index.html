@@ -38,7 +38,23 @@
           <li class="nav-item"><a href="#class" class="nav-link smoothScroll">Retos seguros</a></li>
           <li class="nav-item"><a href="#schedule" class="nav-link smoothScroll">Aprendizaje</a></li>
           <li class="nav-item"><a href="#contact" class="nav-link smoothScroll">Apoyo</a></li>
-          <li class="nav-item"><a href="#" class="nav-link smoothScroll" data-toggle="modal" data-target="#IniciarSesion">Login</a></li>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownAcceso" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Acceso
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAcceso">
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#IniciarSesion">
+                <i class="fa fa-sign-in mr-2"></i>Iniciar Sesión
+              </a>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#registerModal">
+                <i class="fa fa-user-plus mr-2"></i>Registrarse
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#registroParentalModal">
+                <i class="fa fa-shield mr-2"></i>Control Parental
+              </a>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -257,9 +273,7 @@
             <input type="hidden" name="opcion" value="7" />
             <div class="text-center">
               <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100"
-                style="background-color:#0056b3; transition:0.3s;"
-                onmouseover="this.style.backgroundColor='#009C9C'"
-                onmouseout="this.style.backgroundColor='#007B7F'">
+                style="background:#0056b3; border:none; transition:background 0.3s;">
                 Iniciar Sesión
               </button>
             </div>
@@ -285,7 +299,8 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body px-4 py-5">
+        <div class="modal-body px-4 py-5" id="modal-registro-body">
+          <div id="seccion-registro-normal">
           <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
             <div class="form-row">
               <div class="form-group col-md-6 mb-3">
@@ -347,9 +362,205 @@
             </div>
             <input type="hidden" name="opcion" value="1" />
             <div class="text-center">
-              <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100"
+              <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100 mb-3"
                 style="background:#0056b3; border:none; transition:background 0.3s;">
                 Registrarse
+              </button>
+              <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
+                style="background:#e9f0fb; color:#0056b3; border:none; transition:background 0.3s;"
+                data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                ¿Ya tienes cuenta? Iniciar Sesión
+              </button>
+            </div>
+          </form>
+          </div><!-- /seccion-registro-normal -->
+
+          <!-- Botón de Control Parental FUERA del form -->
+          <div class="card border-0 shadow-sm mb-2 mt-2" style="border-radius:14px; background:#f0f6ff;">
+            <div class="card-body px-3 py-3 text-center">
+              <h6 class="font-weight-bold mb-1" style="color:#0056b3;">
+                <i class="fa fa-shield mr-1"></i> Control Parental
+              </h6>
+              <p class="text-secondary mb-3" style="font-size:0.85rem;">
+                ¿Eres papá, mamá o tutor de este usuario? Completa tus datos para activar la supervisión parental.
+              </p>
+              <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
+                style="background:#0056b3; color:white; border:none; transition:background 0.3s;"
+                data-toggle="modal" data-target="#registroParentalModal" data-dismiss="modal">
+                <i class="fa fa-shield mr-1"></i> Soy papá / mamá / tutor
+              </button>
+            </div>
+          </div>
+
+          <!-- Formulario Parental inline -->
+          <div id="seccion-registro-parental" style="display:none;">
+            <div class="alert alert-info py-2 px-3 mb-4" style="border-radius:10px; font-size:0.88rem;">
+              <i class="fa fa-info-circle mr-1"></i>
+              Este registro es exclusivo para adultos responsables. Debes tener <strong>18 &amp;ntilde;os o m&amp;aacute;s</strong>.
+            </div>
+            <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
+              <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Nombre</label>
+                  <input type="text" class="form-control border-0 shadow-sm" name="cp_nombre" required style="border-radius:12px;">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Apellidos</label>
+                  <input type="text" class="form-control border-0 shadow-sm" name="cp_apellidos" required style="border-radius:12px;">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Tel&amp;eacute;fono</label>
+                  <input type="tel" class="form-control border-0 shadow-sm" name="cp_telefono" required style="border-radius:12px;">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                  <label class="font-weight-semibold text-secondary">Edad (mayor de 18)</label>
+                  <input type="number" class="form-control border-0 shadow-sm" name="cp_edad" id="cp-edad" min="18" max="120" required style="border-radius:12px;" oninvalid="this.setCustomValidity('Debes ser mayor de 18 años')" oninput="this.setCustomValidity('')">
+                  <small id="cp-edad-error" class="text-danger" style="display:none;">Debes ser mayor de 18 anos.</small>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label class="font-weight-semibold text-secondary">G&amp;eacute;nero</label>
+                <select class="form-control border-0 shadow-sm" name="cp_genero" required style="border-radius:12px;">
+                  <option value="" disabled selected>Selecciona tu g&amp;eacute;nero</option>
+                  <option value="Hombre">Hombre</option>
+                  <option value="Mujer">Mujer</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label class="font-weight-semibold text-secondary">Relaci&amp;oacute;n con el usuario</label>
+                <select class="form-control border-0 shadow-sm" name="cp_rol" id="cp-rol-parental" required style="border-radius:12px;">
+                  <option value="" disabled selected>Selecciona tu rol</option>
+                  <option value="Papa">Pap&amp;aacute;</option>
+                  <option value="Mama">Mam&amp;aacute;</option>
+                  <option value="Tutor">Tutor/a</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label class="font-weight-semibold text-secondary">Correo Electr&amp;oacute;nico</label>
+                <input type="email" class="form-control border-0 shadow-sm" name="cp_correo" required style="border-radius:12px;">
+              </div>
+              <div class="form-group mb-4">
+                <label class="font-weight-semibold text-secondary">Contrase&amp;ntilde;a</label>
+                <div class="input-group shadow-sm" style="border-radius:12px; overflow:hidden;">
+                  <input type="password" class="form-control border-0" id="cp-contrasena" name="cp_contrasena" placeholder="Crea una contrasena" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$" title="Debe tener al menos una letra minuscula, una mayuscula, un numero, minimo 8 caracteres y sin espacios" required>
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-white border-0">
+                      <i id="toggleCpPassword" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="opcion" value="8" />
+              <div class="text-center">
+                <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100 mb-3" style="background:#0056b3; border:none;">
+                  Registrar como Responsable
+                </button>
+                <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100 mb-2" style="background:#e9f0fb; color:#0056b3; border:none;" onclick="volverRegistroNormal()">
+                  Volver al registro
+                </button>
+                <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100" style="background:#e9f0fb; color:#0056b3; border:none;" data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                  Ya tengo cuenta - Iniciar Sesi&amp;oacute;n
+                </button>
+              </div>
+            </form>
+          </div><!-- /seccion-registro-parental -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Registro Control Parental (Papá / Mamá / Tutor) -->
+  <div class="modal fade" id="registroParentalModal" tabindex="-1" role="dialog" aria-labelledby="registroParentalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
+        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+          <h2 class="modal-title w-100 text-center font-weight-bold" id="registroParentalLabel">
+            <i class="fa fa-shield mr-2"></i>Registro de Control Parental
+          </h2>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity:1; font-size:1.8rem;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-4 py-4">
+          <div class="alert alert-info py-2 px-3 mb-4" style="border-radius:10px; font-size:0.88rem;">
+            <i class="fa fa-info-circle mr-1"></i>
+            Este registro es exclusivo para adultos responsables. Debes tener <strong>18 años o más</strong>.
+          </div>
+          <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Nombre</label>
+                <input type="text" class="form-control border-0 shadow-sm" name="cp_nombre" id="cp-nombre" required style="border-radius:12px;">
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Apellidos</label>
+                <input type="text" class="form-control border-0 shadow-sm" name="cp_apellidos" id="cp-apellidos" required style="border-radius:12px;">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Teléfono</label>
+                <input type="tel" class="form-control border-0 shadow-sm" name="cp_telefono" id="cp-telefono" required style="border-radius:12px;">
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label class="font-weight-semibold text-secondary">Edad</label>
+                <input type="number" class="form-control border-0 shadow-sm" name="cp_edad" id="cp-edad"
+                  min="18" max="120" required style="border-radius:12px;"
+                  oninvalid="this.setCustomValidity('Debes ser mayor de 18 años')"
+                  oninput="this.setCustomValidity('')">
+                <small id="cp-edad-error" class="text-danger" style="display:none;">Debes ser mayor de 18 años.</small>
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label class="font-weight-semibold text-secondary">Género</label>
+              <select class="form-control border-0 shadow-sm" name="cp_genero" required style="border-radius:12px;">
+                <option value="" disabled selected>Selecciona tu género</option>
+                <option value="Hombre">Hombre</option>
+                <option value="Mujer">Mujer</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label class="font-weight-semibold text-secondary">Relación con el usuario</label>
+              <select class="form-control border-0 shadow-sm" name="cp_rol" id="cp-rol-parental" required style="border-radius:12px;">
+                <option value="" disabled selected>Selecciona tu rol</option>
+                <option value="Papa">Papá</option>
+                <option value="Mama">Mamá</option>
+                <option value="Tutor">Tutor/a</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label class="font-weight-semibold text-secondary">Correo Electrónico</label>
+              <input type="email" class="form-control border-0 shadow-sm" name="cp_correo" required style="border-radius:12px;">
+            </div>
+            <div class="form-group mb-4">
+              <label class="font-weight-semibold text-secondary">Contraseña</label>
+              <div class="input-group shadow-sm" style="border-radius:12px; overflow:hidden;">
+                <input type="password" class="form-control border-0" id="cp-contrasena-modal" name="cp_contrasena"
+                  placeholder="Crea una contraseña"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$"
+                  title="Debe tener al menos una letra minúscula, una mayúscula, un número, mínimo 8 caracteres y sin espacios"
+                  required>
+                <div class="input-group-append">
+                  <span class="input-group-text bg-white border-0">
+                    <i id="toggleCpPassword-modal" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="opcion" value="8" />
+            <div class="text-center">
+              <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100 mb-3"
+                style="background:#0056b3; border:none; transition:background 0.3s;">
+                Registrar como Responsable
+              </button>
+              <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
+                style="background:#e9f0fb; color:#0056b3; border:none;"
+                data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                ¿Ya tienes cuenta? Iniciar Sesión
               </button>
             </div>
           </form>
@@ -469,6 +680,7 @@
 
     // Login: mostrar/ocultar contraseña
     document.addEventListener('DOMContentLoaded', function () {
+      // Toggle contraseña - Login
       var toggleLogin = document.getElementById('toggleLoginPassword');
       var loginPass   = document.getElementById('login-contrasena');
       if (toggleLogin) {
@@ -480,7 +692,7 @@
         });
       }
 
-      // Registro: mostrar/ocultar contraseña
+      // Toggle contraseña - Registro normal
       var toggleRegister = document.getElementById('toggleRegisterPassword');
       var registerPass   = document.getElementById('reg-contrasena');
       if (toggleRegister) {
@@ -492,7 +704,19 @@
         });
       }
 
-      // Validacion contrasena en tiempo real
+      // Toggle contraseña - modal Control Parental (#registroParentalModal)
+      var toggleCpModal = document.getElementById('toggleCpPassword-modal');
+      var cpPassModal   = document.getElementById('cp-contrasena-modal');
+      if (toggleCpModal && cpPassModal) {
+        toggleCpModal.addEventListener('click', function() {
+          var type = cpPassModal.getAttribute('type') === 'password' ? 'text' : 'password';
+          cpPassModal.setAttribute('type', type);
+          toggleCpModal.classList.toggle('fa-eye');
+          toggleCpModal.classList.toggle('fa-eye-slash');
+        });
+      }
+
+      // Validacion contraseña en tiempo real
       var passwordInput = document.getElementById('reg-contrasena');
       var tooltip       = document.getElementById('passwordTooltip');
       if (passwordInput) {
@@ -508,6 +732,49 @@
         });
       }
     });
+
+  // Funcion global: solo muestra la alerta al cambiar el select
+  function manejarControlParental(valor) {
+    var alerta = document.getElementById('cp-alerta-menor');
+    if (valor === 'Papa' || valor === 'Mama' || valor === 'Tutor') {
+      if (alerta) alerta.style.display = 'block';
+    } else {
+      if (alerta) alerta.style.display = 'none';
+    }
+  }
+
+  // Cuando se da clic en Registrarse: si eligió papá/mamá/tutor abre el modal parental
+  function manejarClickRegistrarse() {
+    var cpRelacion = document.getElementById('cp-relacion');
+    var valor = cpRelacion ? cpRelacion.value : '';
+    if (valor === 'Papa' || valor === 'Mama' || valor === 'Tutor') {
+      // Preseleccionar el rol en el modal parental
+      var rolParental = document.getElementById('cp-rol-parental');
+      if (rolParental) rolParental.value = valor;
+      // Cerrar modal de registro y abrir el parental
+      var modalReg = document.getElementById('registerModal');
+      var modalPar = document.getElementById('registroParentalModal');
+      $(modalReg).modal('hide');
+      $(modalReg).on('hidden.bs.modal', function abrirParental() {
+        $(modalReg).off('hidden.bs.modal', abrirParental);
+        $(modalPar).modal('show');
+      });
+    } else {
+      // Enviar el formulario de registro normal
+      var form = document.querySelector('#seccion-registro-normal form');
+      if (form) form.submit();
+    }
+  }
+
+  // Funcion global: volver al formulario normal desde el parental
+  function volverRegistroNormal() {
+    document.getElementById('seccion-registro-normal').style.display = 'block';
+    document.getElementById('seccion-registro-parental').style.display = 'none';
+    var rel = document.getElementById('cp-relacion');
+    if (rel) rel.value = '';
+    var alerta = document.getElementById('cp-alerta-menor');
+    if (alerta) alerta.style.display = 'none';
+  }
   </script>
 
 </body>
