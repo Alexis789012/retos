@@ -11,6 +11,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <script src="https://kit.fontawesome.com/274421acc6.js" crossorigin="anonymous"></script>
+  <style>
+    .req-item { padding: 2px 0; color: #888; transition: color 0.25s; font-size: 13.5px; display:flex; align-items:center; gap:6px; }
+    .req-icon { display:inline-block; width:16px; text-align:center; font-size:14px; transition: all 0.2s; }
+  </style>
   <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -239,7 +243,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
   <!-- Modal Login -->
-  <div class="modal" id="IniciarSesion" tabindex="-1" role="dialog" aria-labelledby="IniciarSesionLabel" aria-hidden="true">
+  <div class="modal fade" id="IniciarSesion" tabindex="-1" role="dialog" aria-labelledby="IniciarSesionLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
         <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
@@ -279,7 +283,7 @@
             </div>
             <p class="text-center mt-4 text-secondary">
               ¿No tienes cuenta?
-              <a href="#" data-toggle="modal" data-target="#registerModal" data-dismiss="modal" class="font-weight-semibold" style="color:#0056b3;">
+              <a href="#" onclick="cambiarModal('#IniciarSesion','#registerModal')" class="font-weight-semibold" style="color:#0056b3;">
                 Regístrate
               </a>
             </p>
@@ -292,8 +296,8 @@
   <!-- Modal Registro -->
   <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-      <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
-        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+      <div class="modal-content border-0 shadow-lg" style="border-radius:20px;">
+        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none; border-radius:20px 20px 0 0;">
           <h2 class="modal-title w-100 text-center font-weight-bold" id="registerModalLabel">Formulario de Registro</h2>
           <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity:1; font-size:1.8rem;">
             <span aria-hidden="true">&times;</span>
@@ -349,14 +353,14 @@
                   </span>
                 </div>
               </div>
-              <div id="passwordTooltip" style="display:none; font-size:14px; margin-top:5px;">
-                <strong>La contraseña debe cumplir:</strong>
-                <ul style="margin:5px 0 0 15px; padding:0;">
-                  <li id="lower">Al menos una letra minúscula</li>
-                  <li id="upper">Al menos una letra mayúscula</li>
-                  <li id="number">Al menos un número</li>
-                  <li id="length">Mínimo 8 caracteres</li>
-                  <li id="space">Sin espacios</li>
+              <div id="passwordTooltip" style="display:none; background:#f8faff; border:1px solid #d0e3ff; border-radius:10px; padding:10px 14px; margin-top:8px; font-size:13.5px;">
+                <strong style="color:#0056b3;">La contraseña debe cumplir:</strong>
+                <ul style="margin:6px 0 0 0; padding:0; list-style:none;">
+                  <li id="lower" class="req-item"><span class="req-icon">○</span> Al menos una letra minúscula</li>
+                  <li id="upper" class="req-item"><span class="req-icon">○</span> Al menos una letra mayúscula</li>
+                  <li id="number" class="req-item"><span class="req-icon">○</span> Al menos un número</li>
+                  <li id="length" class="req-item"><span class="req-icon">○</span> Mínimo 8 caracteres</li>
+                  <li id="space"  class="req-item"><span class="req-icon">○</span> Sin espacios</li>
                 </ul>
               </div>
             </div>
@@ -368,7 +372,7 @@
               </button>
               <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
                 style="background:#e9f0fb; color:#0056b3; border:none; transition:background 0.3s;"
-                data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                onclick="cambiarModal('#registerModal','#IniciarSesion')">
                 ¿Ya tienes cuenta? Iniciar Sesión
               </button>
             </div>
@@ -386,87 +390,13 @@
               </p>
               <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
                 style="background:#0056b3; color:white; border:none; transition:background 0.3s;"
-                data-toggle="modal" data-target="#registroParentalModal" data-dismiss="modal">
+                onclick="abrirModalParental()">
                 <i class="fa fa-shield mr-1"></i> Soy papá / mamá / tutor
               </button>
             </div>
           </div>
 
-          <!-- Formulario Parental inline -->
-          <div id="seccion-registro-parental" style="display:none;">
-            <div class="alert alert-info py-2 px-3 mb-4" style="border-radius:10px; font-size:0.88rem;">
-              <i class="fa fa-info-circle mr-1"></i>
-              Este registro es exclusivo para adultos responsables. Debes tener <strong>18 &amp;ntilde;os o m&amp;aacute;s</strong>.
-            </div>
-            <form action="controller/ctrlUsuario.php" method="post" enctype="multipart/form-data">
-              <div class="form-row">
-                <div class="form-group col-md-6 mb-3">
-                  <label class="font-weight-semibold text-secondary">Nombre</label>
-                  <input type="text" class="form-control border-0 shadow-sm" name="cp_nombre" required style="border-radius:12px;">
-                </div>
-                <div class="form-group col-md-6 mb-3">
-                  <label class="font-weight-semibold text-secondary">Apellidos</label>
-                  <input type="text" class="form-control border-0 shadow-sm" name="cp_apellidos" required style="border-radius:12px;">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6 mb-3">
-                  <label class="font-weight-semibold text-secondary">Tel&amp;eacute;fono</label>
-                  <input type="tel" class="form-control border-0 shadow-sm" name="cp_telefono" required style="border-radius:12px;">
-                </div>
-                <div class="form-group col-md-6 mb-3">
-                  <label class="font-weight-semibold text-secondary">Edad (mayor de 18)</label>
-                  <input type="number" class="form-control border-0 shadow-sm" name="cp_edad" id="cp-edad" min="18" max="120" required style="border-radius:12px;" oninvalid="this.setCustomValidity('Debes ser mayor de 18 años')" oninput="this.setCustomValidity('')">
-                  <small id="cp-edad-error" class="text-danger" style="display:none;">Debes ser mayor de 18 anos.</small>
-                </div>
-              </div>
-              <div class="form-group mb-3">
-                <label class="font-weight-semibold text-secondary">G&amp;eacute;nero</label>
-                <select class="form-control border-0 shadow-sm" name="cp_genero" required style="border-radius:12px;">
-                  <option value="" disabled selected>Selecciona tu g&amp;eacute;nero</option>
-                  <option value="Hombre">Hombre</option>
-                  <option value="Mujer">Mujer</option>
-                  <option value="Otro">Otro</option>
-                </select>
-              </div>
-              <div class="form-group mb-3">
-                <label class="font-weight-semibold text-secondary">Relaci&amp;oacute;n con el usuario</label>
-                <select class="form-control border-0 shadow-sm" name="cp_rol" id="cp-rol-parental" required style="border-radius:12px;">
-                  <option value="" disabled selected>Selecciona tu rol</option>
-                  <option value="Papa">Pap&amp;aacute;</option>
-                  <option value="Mama">Mam&amp;aacute;</option>
-                  <option value="Tutor">Tutor/a</option>
-                </select>
-              </div>
-              <div class="form-group mb-3">
-                <label class="font-weight-semibold text-secondary">Correo Electr&amp;oacute;nico</label>
-                <input type="email" class="form-control border-0 shadow-sm" name="cp_correo" required style="border-radius:12px;">
-              </div>
-              <div class="form-group mb-4">
-                <label class="font-weight-semibold text-secondary">Contrase&amp;ntilde;a</label>
-                <div class="input-group shadow-sm" style="border-radius:12px; overflow:hidden;">
-                  <input type="password" class="form-control border-0" id="cp-contrasena" name="cp_contrasena" placeholder="Crea una contrasena" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\s]{8,}$" title="Debe tener al menos una letra minuscula, una mayuscula, un numero, minimo 8 caracteres y sin espacios" required>
-                  <div class="input-group-append">
-                    <span class="input-group-text bg-white border-0">
-                      <i id="toggleCpPassword" class="fa-solid fa-eye text-muted" style="cursor:pointer;"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <input type="hidden" name="opcion" value="8" />
-              <div class="text-center">
-                <button type="submit" class="btn text-white font-weight-semibold py-2 px-5 rounded-pill w-100 mb-3" style="background:#0056b3; border:none;">
-                  Registrar como Responsable
-                </button>
-                <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100 mb-2" style="background:#e9f0fb; color:#0056b3; border:none;" onclick="volverRegistroNormal()">
-                  Volver al registro
-                </button>
-                <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100" style="background:#e9f0fb; color:#0056b3; border:none;" data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
-                  Ya tengo cuenta - Iniciar Sesi&amp;oacute;n
-                </button>
-              </div>
-            </form>
-          </div><!-- /seccion-registro-parental -->
+          <!-- Formulario Parental: se abre en el modal independiente #registroParentalModal -->
         </div>
       </div>
     </div>
@@ -475,8 +405,8 @@
   <!-- Modal Registro Control Parental (Papá / Mamá / Tutor) -->
   <div class="modal fade" id="registroParentalModal" tabindex="-1" role="dialog" aria-labelledby="registroParentalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-      <div class="modal-content border-0 shadow-lg" style="border-radius:20px; overflow:hidden;">
-        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none;">
+      <div class="modal-content border-0 shadow-lg" style="border-radius:20px;">
+        <div class="modal-header" style="background:#0056b3; color:white; border-bottom:none; border-radius:20px 20px 0 0;">
           <h2 class="modal-title w-100 text-center font-weight-bold" id="registroParentalLabel">
             <i class="fa fa-shield mr-2"></i>Registro de Control Parental
           </h2>
@@ -550,6 +480,16 @@
                   </span>
                 </div>
               </div>
+              <div id="cpPasswordTooltip" style="display:none; background:#f8faff; border:1px solid #d0e3ff; border-radius:10px; padding:10px 14px; margin-top:8px; font-size:13.5px;">
+                <strong style="color:#0056b3;">La contraseña debe cumplir:</strong>
+                <ul style="margin:6px 0 0 0; padding:0; list-style:none;">
+                  <li id="cp-lower" class="req-item"><span class="req-icon">○</span> Al menos una letra minúscula</li>
+                  <li id="cp-upper" class="req-item"><span class="req-icon">○</span> Al menos una letra mayúscula</li>
+                  <li id="cp-number" class="req-item"><span class="req-icon">○</span> Al menos un número</li>
+                  <li id="cp-length" class="req-item"><span class="req-icon">○</span> Mínimo 8 caracteres</li>
+                  <li id="cp-space"  class="req-item"><span class="req-icon">○</span> Sin espacios</li>
+                </ul>
+              </div>
             </div>
             <input type="hidden" name="opcion" value="8" />
             <div class="text-center">
@@ -559,7 +499,7 @@
               </button>
               <button type="button" class="btn font-weight-semibold py-2 px-5 rounded-pill w-100"
                 style="background:#e9f0fb; color:#0056b3; border:none;"
-                data-toggle="modal" data-target="#IniciarSesion" data-dismiss="modal">
+                onclick="cambiarModal('#registroParentalModal','#IniciarSesion')">
                 ¿Ya tienes cuenta? Iniciar Sesión
               </button>
             </div>
@@ -636,10 +576,7 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+  <!-- Bootstrap 5 CDN removido: se usa Bootstrap 4 local para evitar conflictos con modales -->
 
   <script>
     // EmailJS init (una sola vez)
@@ -680,101 +617,80 @@
 
     // Login: mostrar/ocultar contraseña
     document.addEventListener('DOMContentLoaded', function () {
-      // Toggle contraseña - Login
-      var toggleLogin = document.getElementById('toggleLoginPassword');
-      var loginPass   = document.getElementById('login-contrasena');
-      if (toggleLogin) {
-        toggleLogin.addEventListener('click', function () {
-          var type = loginPass.getAttribute('type') === 'password' ? 'text' : 'password';
-          loginPass.setAttribute('type', type);
-          toggleLogin.classList.toggle('fa-eye');
-          toggleLogin.classList.toggle('fa-eye-slash');
+      // Toggle contraseña genérico (fa-solid fa-eye / fa-eye-slash)
+      function bindTogglePass(btnId, inputId) {
+        var btn   = document.getElementById(btnId);
+        var input = document.getElementById(inputId);
+        if (!btn || !input) return;
+        btn.addEventListener('click', function () {
+          var isPass = input.getAttribute('type') === 'password';
+          input.setAttribute('type', isPass ? 'text' : 'password');
+          btn.classList.toggle('fa-eye',       !isPass);
+          btn.classList.toggle('fa-eye-slash',  isPass);
+        });
+      }
+      bindTogglePass('toggleLoginPassword',    'login-contrasena');
+      bindTogglePass('toggleRegisterPassword', 'reg-contrasena');
+      bindTogglePass('toggleCpPassword-modal', 'cp-contrasena-modal');
+
+      // Actualiza un criterio individual con palomita o círculo
+      function updateReq(itemId, met) {
+        var li = document.getElementById(itemId);
+        if (!li) return;
+        var icon = li.querySelector('.req-icon');
+        if (met) {
+          li.style.color = '#1a8a2e';
+          icon.textContent = '✓';
+          icon.style.fontWeight = 'bold';
+        } else {
+          li.style.color = '#888';
+          icon.textContent = '○';
+          icon.style.fontWeight = 'normal';
+        }
+      }
+
+      // Vincula campo → su propio bloque de criterios (sin contaminar otros)
+      function bindPasswordCriteria(inputId, tooltipId, p) {
+        var input   = document.getElementById(inputId);
+        var tooltip = document.getElementById(tooltipId);
+        if (!input || !tooltip) return;
+        var pre = p ? p + '-' : '';
+        input.addEventListener('focus', function () { tooltip.style.display = 'block'; });
+        input.addEventListener('blur',  function () { if (!input.value) tooltip.style.display = 'none'; });
+        input.addEventListener('input', function () {
+          var val = input.value;
+          updateReq(pre + 'lower',  /[a-z]/.test(val));
+          updateReq(pre + 'upper',  /[A-Z]/.test(val));
+          updateReq(pre + 'number', /\d/.test(val));
+          updateReq(pre + 'length', val.length >= 8);
+          updateReq(pre + 'space',  val.length > 0 && !/\s/.test(val));
         });
       }
 
-      // Toggle contraseña - Registro normal
-      var toggleRegister = document.getElementById('toggleRegisterPassword');
-      var registerPass   = document.getElementById('reg-contrasena');
-      if (toggleRegister) {
-        toggleRegister.addEventListener('click', function () {
-          var type = registerPass.getAttribute('type') === 'password' ? 'text' : 'password';
-          registerPass.setAttribute('type', type);
-          toggleRegister.classList.toggle('fa-eye');
-          toggleRegister.classList.toggle('fa-eye-slash');
-        });
-      }
+      // Registro normal: criterios con ids lower/upper/number/length/space
+      bindPasswordCriteria('reg-contrasena', 'passwordTooltip', '');
 
-      // Toggle contraseña - modal Control Parental (#registroParentalModal)
-      var toggleCpModal = document.getElementById('toggleCpPassword-modal');
-      var cpPassModal   = document.getElementById('cp-contrasena-modal');
-      if (toggleCpModal && cpPassModal) {
-        toggleCpModal.addEventListener('click', function() {
-          var type = cpPassModal.getAttribute('type') === 'password' ? 'text' : 'password';
-          cpPassModal.setAttribute('type', type);
-          toggleCpModal.classList.toggle('fa-eye');
-          toggleCpModal.classList.toggle('fa-eye-slash');
-        });
-      }
-
-      // Validacion contraseña en tiempo real
-      var passwordInput = document.getElementById('reg-contrasena');
-      var tooltip       = document.getElementById('passwordTooltip');
-      if (passwordInput) {
-        passwordInput.addEventListener('focus', function() { tooltip.style.display = 'block'; });
-        passwordInput.addEventListener('blur',  function() { tooltip.style.display = 'none'; });
-        passwordInput.addEventListener('input', function() {
-          var val = passwordInput.value;
-          document.getElementById('lower').style.color  = /[a-z]/.test(val)  ? 'green' : 'red';
-          document.getElementById('upper').style.color  = /[A-Z]/.test(val)  ? 'green' : 'red';
-          document.getElementById('number').style.color = /\d/.test(val)     ? 'green' : 'red';
-          document.getElementById('length').style.color = val.length >= 8    ? 'green' : 'red';
-          document.getElementById('space').style.color  = /\s/.test(val)     ? 'red'   : 'green';
-        });
-      }
+      // Control Parental: criterios con ids cp-lower/cp-upper/etc
+      bindPasswordCriteria('cp-contrasena-modal', 'cpPasswordTooltip', 'cp');
     });
 
-  // Funcion global: solo muestra la alerta al cambiar el select
-  function manejarControlParental(valor) {
-    var alerta = document.getElementById('cp-alerta-menor');
-    if (valor === 'Papa' || valor === 'Mama' || valor === 'Tutor') {
-      if (alerta) alerta.style.display = 'block';
-    } else {
-      if (alerta) alerta.style.display = 'none';
-    }
+  // Función genérica para cambiar entre modales (BS4)
+  function cambiarModal(origen, destino) {
+    var $origen  = $(origen);
+    var $destino = $(destino);
+    $origen.modal('hide');
+    setTimeout(function() { $destino.modal('show'); }, 450);
   }
 
-  // Cuando se da clic en Registrarse: si eligió papá/mamá/tutor abre el modal parental
-  function manejarClickRegistrarse() {
-    var cpRelacion = document.getElementById('cp-relacion');
-    var valor = cpRelacion ? cpRelacion.value : '';
-    if (valor === 'Papa' || valor === 'Mama' || valor === 'Tutor') {
-      // Preseleccionar el rol en el modal parental
-      var rolParental = document.getElementById('cp-rol-parental');
-      if (rolParental) rolParental.value = valor;
-      // Cerrar modal de registro y abrir el parental
-      var modalReg = document.getElementById('registerModal');
-      var modalPar = document.getElementById('registroParentalModal');
-      $(modalReg).modal('hide');
-      $(modalReg).on('hidden.bs.modal', function abrirParental() {
-        $(modalReg).off('hidden.bs.modal', abrirParental);
-        $(modalPar).modal('show');
-      });
-    } else {
-      // Enviar el formulario de registro normal
-      var form = document.querySelector('#seccion-registro-normal form');
-      if (form) form.submit();
-    }
+  // Abrir modal parental cerrando primero el de registro
+  function abrirModalParental() {
+    cambiarModal('#registerModal', '#registroParentalModal');
   }
 
-  // Funcion global: volver al formulario normal desde el parental
-  function volverRegistroNormal() {
-    document.getElementById('seccion-registro-normal').style.display = 'block';
-    document.getElementById('seccion-registro-parental').style.display = 'none';
-    var rel = document.getElementById('cp-relacion');
-    if (rel) rel.value = '';
-    var alerta = document.getElementById('cp-alerta-menor');
-    if (alerta) alerta.style.display = 'none';
-  }
+  // Compatibilidad con funciones previas
+  function manejarControlParental() {}
+  function manejarClickRegistrarse() {}
+  function volverRegistroNormal() {}
   </script>
 
 </body>
