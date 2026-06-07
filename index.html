@@ -286,7 +286,7 @@
             </div>
             <p class="text-center mt-4 text-secondary">
               ¿No tienes cuenta?
-              <a href="#" onclick="cambiarModal('#IniciarSesion','#registerModal')" class="font-weight-semibold" style="color:#0056b3;">
+              <a href="javascript:void(0)" onclick="cambiarModal('#IniciarSesion','#registerModal')" class="font-weight-semibold" style="color:#0056b3;">
                 Regístrate
               </a>
             </p>
@@ -618,9 +618,10 @@
       });
     }
 
-    // Login: mostrar/ocultar contraseña
+    // Mostrar/ocultar contraseña + validación de criterios
     document.addEventListener('DOMContentLoaded', function () {
-      // Toggle contraseña genérico (fa-solid fa-eye / fa-eye-slash)
+
+      // Toggle ojo contraseña
       function bindTogglePass(btnId, inputId) {
         var btn   = document.getElementById(btnId);
         var input = document.getElementById(inputId);
@@ -628,15 +629,15 @@
         btn.addEventListener('click', function () {
           var isPass = input.getAttribute('type') === 'password';
           input.setAttribute('type', isPass ? 'text' : 'password');
-          btn.classList.toggle('fa-eye',       !isPass);
-          btn.classList.toggle('fa-eye-slash',  isPass);
+          btn.classList.toggle('fa-eye',      !isPass);
+          btn.classList.toggle('fa-eye-slash', isPass);
         });
       }
       bindTogglePass('toggleLoginPassword',    'login-contrasena');
       bindTogglePass('toggleRegisterPassword', 'reg-contrasena');
       bindTogglePass('toggleCpPassword-modal', 'cp-contrasena-modal');
 
-      // Actualiza un criterio individual con palomita o círculo
+      // Criterios de contraseña
       function updateReq(itemId, met) {
         var li = document.getElementById(itemId);
         if (!li) return;
@@ -652,7 +653,6 @@
         }
       }
 
-      // Vincula campo → su propio bloque de criterios (sin contaminar otros)
       function bindPasswordCriteria(inputId, tooltipId, p) {
         var input   = document.getElementById(inputId);
         var tooltip = document.getElementById(tooltipId);
@@ -669,31 +669,23 @@
           updateReq(pre + 'space',  val.length > 0 && !/\s/.test(val));
         });
       }
-
-      // Registro normal: criterios con ids lower/upper/number/length/space
-      bindPasswordCriteria('reg-contrasena', 'passwordTooltip', '');
-
-      // Control Parental: criterios con ids cp-lower/cp-upper/etc
+      bindPasswordCriteria('reg-contrasena',      'passwordTooltip',   '');
       bindPasswordCriteria('cp-contrasena-modal', 'cpPasswordTooltip', 'cp');
     });
 
-  // Función genérica para cambiar entre modales (BS4)
-  function cambiarModal(origen, destino) {
-    var $origen  = $(origen);
-    var $destino = $(destino);
-    $origen.modal('hide');
-    setTimeout(function() { $destino.modal('show'); }, 450);
-  }
+    // Cambiar entre modales (BS4)
+    function cambiarModal(origen, destino) {
+      $(origen).modal('hide');
+      setTimeout(function() { $(destino).modal('show'); }, 450);
+    }
 
-  // Abrir modal parental cerrando primero el de registro
-  function abrirModalParental() {
-    cambiarModal('#registerModal', '#registroParentalModal');
-  }
+    function abrirModalParental() {
+      cambiarModal('#registerModal', '#registroParentalModal');
+    }
 
-  // Compatibilidad con funciones previas
-  function manejarControlParental() {}
-  function manejarClickRegistrarse() {}
-  function volverRegistroNormal() {}
+    function manejarControlParental() {}
+    function manejarClickRegistrarse() {}
+    function volverRegistroNormal() {}
   </script>
 
 </body>

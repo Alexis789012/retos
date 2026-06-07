@@ -1,8 +1,12 @@
 
   $(function () {
 
-    // MENU
-    $('.navbar-collapse a').on('click',function(){
+    // MENU: cerrar navbar al hacer clic en un enlace,
+    // pero NO si es el toggle del dropdown ni un item que abre modal
+    $('.navbar-collapse a').on('click', function () {
+      var $this = $(this);
+      if ($this.hasClass('dropdown-toggle')) return;
+      if ($this.attr('data-toggle') === 'modal') return;
       $(".navbar-collapse").collapse('hide');
     });
 
@@ -13,19 +17,16 @@
       anchorPlacement: 'center-bottom'
     });
 
+    // SMOOTHSCROLL: solo los enlaces con clase .smoothScroll que apunten a secciones reales
+    $('.smoothScroll').on('click', function (event) {
+      var href = $(this).attr('href');
+      if (!href || href.charAt(0) !== '#') return;
+      var $target = $(href);
+      if (!$target.length) return;
+      event.preventDefault();
+      $('html, body').stop().animate({
+        scrollTop: $target.offset().top - 49
+      }, 1000);
+    });
 
-    // SMOOTHSCROLL NAVBAR
-    $(function() {
-      $('.navbar a, .hero-text a').on('click', function(event) {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top - 49
-        }, 1000);
-        event.preventDefault();
-      });
-    });    
   });
-
-
-    
-
