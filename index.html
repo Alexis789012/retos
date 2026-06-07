@@ -223,11 +223,16 @@
             <h4 class="text-center mb-4 text-primary">Déjanos tu mensaje</h4>
             <div class="mb-3">
               <label class="form-label">Nombre</label>
-              <input type="text" id="nombre" class="form-control" placeholder="Tu nombre">
+              <input type="text" id="nombre" class="form-control" placeholder="Tu nombre"
+                oninput="validarNombre(this)"
+                onkeypress="return bloquearNumeros(event)">
+              <small id="nombre-aviso" style="color:red; display:none;">⚠️ El nombre solo debe contener letras.</small>
             </div>
             <div class="mb-3">
               <label class="form-label">Correo electrónico</label>
-              <input type="email" id="correo" class="form-control" placeholder="Tu correo">
+              <input type="email" id="correo" class="form-control" placeholder="Tu correo"
+                oninput="validarCorreo(this)">
+              <small id="correo-aviso" style="color:red; display:none;">⚠️ Ingresa un correo válido (@gmail, @hotmail, @outlook, @yahoo, etc.)</small>
             </div>
             <div class="mb-3">
               <label class="form-label">Mensaje</label>
@@ -585,6 +590,37 @@
     // EmailJS init (una sola vez)
     emailjs.init("kR_JZ4yKAV1i3BeqV");
 
+    // --- Validaciones campo Nombre ---
+    function bloquearNumeros(e) {
+      var char = String.fromCharCode(e.which || e.keyCode);
+      // Permitir letras, espacios, acentos, ñ
+      if (/[0-9]/.test(char)) {
+        document.getElementById('nombre-aviso').style.display = 'inline';
+        return false;
+      }
+      return true;
+    }
+    function validarNombre(input) {
+      var aviso = document.getElementById('nombre-aviso');
+      var soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]*$/.test(input.value);
+      if (!soloLetras) {
+        // Eliminar caracteres no válidos que puedan haberse pegado
+        input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]/g, '');
+        aviso.style.display = 'inline';
+      } else {
+        aviso.style.display = input.value.trim() ? 'none' : 'none';
+      }
+    }
+
+    // --- Validación campo Correo ---
+    var dominiosValidos = /^[^\s@]+@(gmail|hotmail|outlook|yahoo|icloud|live|msn|protonmail|aol|zoho|yandex|gmx|mail|me|mac)\.(com|mx|es|net|org|co|com\.mx|com\.ar|com\.co|com\.pe|com\.br)$/i;
+    function validarCorreo(input) {
+      var aviso = document.getElementById('correo-aviso');
+      var val = input.value.trim();
+      if (val === '') { aviso.style.display = 'none'; return; }
+      aviso.style.display = dominiosValidos.test(val) ? 'none' : 'inline';
+    }
+
     // Enviar formulario de contacto
     function enviarFormulario() {
       var nombre  = document.getElementById('nombre').value.trim();
@@ -595,6 +631,22 @@
       if (!nombre || !correo || !mensaje) {
         status.style.color = 'red';
         status.textContent = 'Por favor llena todos los campos.';
+        return;
+      }
+
+      // Validar que nombre no tenga números
+      if (!/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/.test(nombre)) {
+        status.style.color = 'red';
+        status.textContent = '⚠️ El nombre solo debe contener letras.';
+        document.getElementById('nombre-aviso').style.display = 'inline';
+        return;
+      }
+
+      // Validar dominio del correo
+      if (!dominiosValidos.test(correo)) {
+        status.style.color = 'red';
+        status.textContent = '⚠️ Ingresa un correo válido (@gmail, @hotmail, @outlook, etc.)';
+        document.getElementById('correo-aviso').style.display = 'inline';
         return;
       }
 
